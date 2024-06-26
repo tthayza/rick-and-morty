@@ -11,9 +11,12 @@ export class EpisodeService {
 
   constructor(private http: HttpClient) {}
 
-  getEpisodes(page: number = 1): Observable<{ results: IEpisode[] }> {
+  getAllEpisodes(page: number = 1): Observable<{ results: IEpisode[] }> {
     return this.http.get<{ results: IEpisode[] }>(
       `${this.apiUrl}/?page=${page}`
     );
+  }
+  getEpisodeById(id: number): Observable<IEpisode> {
+    return this.http.get<IEpisode>(`${this.apiUrl}/${id}`);
   }
 }
