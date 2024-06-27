@@ -11,8 +11,8 @@ export class CharacterService {
 
   constructor(private http: HttpClient) {}
 
-  getAllCharacters(page: number = 1): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/?page=${page}`);
+  getAllCharacters(page: number = 1): Observable<ICharacter[]> {
+    return this.http.get<ICharacter[]>(`${this.apiUrl}/?page=${page}`);
   }
 
   getCharacterById(id: number): Observable<ICharacter> {
