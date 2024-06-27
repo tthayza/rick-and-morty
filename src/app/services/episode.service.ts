@@ -19,4 +19,9 @@ export class EpisodeService {
   getEpisodeById(id: number): Observable<IEpisode> {
     return this.http.get<IEpisode>(`${this.apiUrl}/${id}`);
   }
+
+  getMultipleEpisodes(ids: number[]): Observable<IEpisode[]> {
+    const idsParam = ids.join(',');
+    return this.http.get<IEpisode[]>(`${this.apiUrl}/${idsParam}`);
+  }
 }

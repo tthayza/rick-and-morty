@@ -19,4 +19,9 @@ export class LocationService {
   getLocationById(id: number): Observable<ILocation> {
     return this.http.get<ILocation>(`${this.apiUrl}/${id}`);
   }
+
+  getMultipleLocations(ids: number[]): Observable<ILocation[]> {
+    const idsParam = ids.join(',');
+    return this.http.get<ILocation[]>(`${this.apiUrl}/${idsParam}`);
+  }
 }
