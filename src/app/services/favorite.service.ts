@@ -4,28 +4,43 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FavoriteService {
-  private storageKey = 'favorites';
+  private favoritesIds: {
+    characters: number[];
+    episodes: number[];
+    locations: number[];
+  } = {
+    characters: [],
+    episodes: [],
+    locations: [],
+  };
 
-  getFavorites(): number[] {
-    const favorites = localStorage.getItem(this.storageKey);
-    return favorites ? JSON.parse(favorites) : [];
+  getFavoritesFromType(
+    type: 'characters' | 'episodes' | 'locations'
+  ): number[] {
+    return this.favoritesIds[type];
   }
 
-  addFavorite(id: number): void {
-    const favorites = this.getFavorites();
-    if (!favorites.includes(id)) {
-      favorites.push(id);
-      localStorage.setItem(this.storageKey, JSON.stringify(favorites));
+  addFavoriteItem(
+    type: 'characters' | 'episodes' | 'locations',
+    id: number
+  ): void {
+    this.favoritesIds[type].push(id);
+  }
+
+  removeFavoriteItem(
+    type: 'characters' | 'episodes' | 'locations',
+    id: number
+  ): void {
+    const itemIndexToRemove = this.favoritesIds[type].indexOf(id);
+    if (itemIndexToRemove !== -1) {
+      this.favoritesIds[type].splice(itemIndexToRemove, 1);
     }
   }
 
-  removeFavorite(id: number): void {
-    let favorites = this.getFavorites();
-    favorites = favorites.filter((favId) => favId !== id);
-    localStorage.setItem(this.storageKey, JSON.stringify(favorites));
-  }
-
-  isFavorite(id: number): boolean {
-    return this.getFavorites().includes(id);
+  isFavoriteItem(
+    type: 'characters' | 'episodes' | 'locations',
+    id: number
+  ): boolean {
+    return this.favoritesIds[type].some((favId) => favId === id);
   }
 }
