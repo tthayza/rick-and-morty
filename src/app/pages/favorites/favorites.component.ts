@@ -3,7 +3,6 @@ import { CharacterService } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { EpisodeService } from '../../services/episode.service';
 import { LocationService } from '../../services/location.service';
-import { ICharacter } from '../../models/character.model';
 import { IFavorites } from '../../models/favorites.model';
 
 @Component({
@@ -29,17 +28,38 @@ export class FavoritesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFavoriteCharacters();
+    this.loadFavoriteEpisodes();
+    this.loadFavoriteLocations();
   }
 
-  // fazer com que o parametro seja o nome do tipo
   loadFavoriteCharacters(): void {
-    const favoriteIds = this.favoriteService.getFavorites();
+    const favoriteIds = this.favoriteService.getFavoritesFromType('characters');
     if (favoriteIds.length > 0) {
       this.characterService
         .getMultipleCharacters(favoriteIds)
         .subscribe((data) => {
-          this.favorites.characters = [...data];
+          this.favorites.characters = data;
         });
+    }
+  }
+
+  loadFavoriteLocations(): void {
+    const favoriteIds = this.favoriteService.getFavoritesFromType('locations');
+    if (favoriteIds.length > 0) {
+      this.locationService
+        .getMultipleLocations(favoriteIds)
+        .subscribe((data) => {
+          this.favorites.locations = [...data];
+        });
+    }
+  }
+
+  loadFavoriteEpisodes(): void {
+    const favoriteIds = this.favoriteService.getFavoritesFromType('episodes');
+    if (favoriteIds.length > 0) {
+      this.episodeService.getMultipleEpisodes(favoriteIds).subscribe((data) => {
+        this.favorites.episodes = [...data];
+      });
     }
   }
 }
