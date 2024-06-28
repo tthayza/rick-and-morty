@@ -1,1 +1,10 @@
-<p>characters works!</p>
+<div class="character-list">
+  <h2>Characters</h2>
+  @for (character of characters; track character) {
+  <div>
+    <p>{{ character.name }}</p>
+    <img src="{{ character.image }}" />
+    <button>Add to Favorites</button>
+  </div>
+  }
+</div>

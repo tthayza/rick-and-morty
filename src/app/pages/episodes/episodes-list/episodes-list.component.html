@@ -1,1 +1,10 @@
-<p>episodes works!</p>
+<div class="character-list">
+  <h2>Episodes</h2>
+
+  @for (episode of episodes; track 0) {
+  <div>
+    <p>{{ episode.name }}</p>
+    <button>Add to Favorites</button>
+  </div>
+  }
+</div>

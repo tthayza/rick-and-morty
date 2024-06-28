@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IEpisode } from '../models/episode.model';
 
 @Injectable({
@@ -11,10 +11,10 @@ export class EpisodeService {
 
   constructor(private http: HttpClient) {}
 
-  getAllEpisodes(page: number = 1): Observable<{ results: IEpisode[] }> {
-    return this.http.get<{ results: IEpisode[] }>(
-      `${this.apiUrl}/?page=${page}`
-    );
+  getAllEpisodes(page: number = 1): Observable<IEpisode[]> {
+    return this.http
+      .get<{ info: any; results: IEpisode[] }>(`${this.apiUrl}/?page=${page}`)
+      .pipe(map((response) => response.results));
   }
   getEpisodeById(id: number): Observable<IEpisode> {
     return this.http.get<IEpisode>(`${this.apiUrl}/${id}`);

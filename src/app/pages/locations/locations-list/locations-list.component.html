@@ -1,1 +1,9 @@
-<p>locations works!</p>
+<div class="character-list">
+  <h2>Locations</h2>
+  @for (location of locations; track 0) {
+  <div>
+    <p>{{ location.name }}</p>
+    <button>Add to Favorites</button>
+  </div>
+  }
+</div>

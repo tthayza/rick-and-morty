@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ICharacter } from '../models/character.model';
 
 @Injectable({
@@ -12,7 +12,9 @@ export class CharacterService {
   constructor(private http: HttpClient) {}
 
   getAllCharacters(page: number = 1): Observable<ICharacter[]> {
-    return this.http.get<ICharacter[]>(`${this.apiUrl}/?page=${page}`);
+    return this.http
+      .get<{ info: any; results: ICharacter[] }>(`${this.apiUrl}/?page=${page}`)
+      .pipe(map((response) => response.results));
   }
 
   getCharacterById(id: number): Observable<ICharacter> {
