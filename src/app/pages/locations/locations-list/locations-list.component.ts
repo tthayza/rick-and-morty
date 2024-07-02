@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ILocation } from '../../../models/location.model';
 import { LocationService } from '../../../services/location.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-locations-list',
@@ -13,14 +14,7 @@ export class LocationsListComponent {
   locations: ILocation[] = [];
   page: number = 1;
 
-  constructor(private locationService: LocationService) {}
+  locations$: Observable<ILocation[]> = this.locationService.locations$;
 
-  ngOnInit(): void {
-    this.loadLocations();
-  }
-  loadLocations(): void {
-    this.locationService.getAllLocations(this.page).subscribe((data) => {
-      this.locations = data;
-    });
-  }
+  constructor(private locationService: LocationService) {}
 }

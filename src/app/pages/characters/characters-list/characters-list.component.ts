@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ICharacter } from '../../../models/character.model';
 import { CharacterService } from '../../../services/character.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-characters-list',
@@ -15,12 +16,9 @@ export class CharactersListComponent {
 
   constructor(private characterService: CharacterService) {}
 
-  ngOnInit(): void {
-    this.loadCharacters();
-  }
-  loadCharacters(): void {
-    this.characterService.getAllCharacters(this.page).subscribe((data) => {
-      this.characters = data;
-    });
+  ngOnInit() {
+    this.characterService
+      .getAllCharacters()
+      .subscribe((data) => console.log('char', data));
   }
 }

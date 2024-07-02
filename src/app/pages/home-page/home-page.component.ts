@@ -29,27 +29,10 @@ export class HomePageComponent {
     private episodeService: EpisodeService,
     private locationService: LocationService
   ) {}
+
   ngOnInit(): void {
-    this.loadCharacters();
-    this.loadEpisodes();
-    this.loadLocations();
-  }
-
-  loadCharacters(): void {
-    this.characterService.getAllCharacters().subscribe((data) => {
-      this.characters = data;
-    });
-  }
-
-  loadEpisodes(): void {
-    this.episodeService.getAllEpisodes().subscribe((data) => {
-      this.episodes = data;
-    });
-  }
-
-  loadLocations(): void {
-    this.locationService.getAllLocations().subscribe((data) => {
-      this.locations = data;
-    });
+    this.characterService.getAllCharacters().subscribe();
+    this.locationService.getAllLocations();
+    this.episodeService.getAllEpisodes();
   }
 }
