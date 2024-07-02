@@ -13,19 +13,14 @@ export class EpisodeService {
   private episodesPerPage = 14;
   constructor(private http: HttpClient) {}
 
-  getAllEpisodes(page: number = 1): void {
-    this.http
-      .get<{ info: any; results: IEpisode[] }>(`${this.apiUrl}/?page=${page}`)
-      .pipe(
-        map((response) => response.results),
-        tap((episodes) => {
-          this.episodesSubject.next(episodes);
-        }),
-        catchError((error) => {
-          console.error('Erro ao carregar episódios:', error);
-          return of([]);
-        })
-      );
+  getAllEpisodes(): Observable<IEpisode[]> {
+    if (this.episodesSubject.getValue().length > 0) return this.episodesSubject;
+    return this.http.get<{ info: any; results: IEpisode[] }>(this.apiUrl).pipe(
+      tap((response) => {
+        this.episodesSubject.next(response.results);
+      }),
+      map((response) => response.results)
+    );
   }
 
   getEpisodesForPage(page: number): Observable<IEpisode[]> {

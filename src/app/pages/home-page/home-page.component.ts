@@ -32,7 +32,7 @@ export class HomePageComponent {
 
   ngOnInit(): void {
     this.characterService.getAllCharacters().subscribe();
-    this.locationService.getAllLocations();
-    this.episodeService.getAllEpisodes();
+    this.locationService.getAllLocations().subscribe();
+    this.episodeService.getAllEpisodes().subscribe();
   }
 }

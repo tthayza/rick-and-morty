@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICharacter } from '../../../models/character.model';
 import { CharacterService } from '../../../services/character.service';
-import { Observable } from 'rxjs';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-characters-list',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })
-export class CharactersListComponent {
+export class CharactersListComponent implements OnInit {
   characters: ICharacter[] = [];
   page: number = 1;
 
@@ -19,6 +19,7 @@ export class CharactersListComponent {
   ngOnInit() {
     this.characterService
       .getAllCharacters()
-      .subscribe((data) => console.log('char', data));
+      .subscribe((data) => (this.characters = data));
+    console.log('chars', this.characters);
   }
 }

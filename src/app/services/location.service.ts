@@ -11,17 +11,20 @@ export class LocationService {
   private locationsSubject = new BehaviorSubject<ILocation[]>([]);
   locations$ = this.locationsSubject.asObservable();
   private locationsPerPage = 14;
+
   constructor(private http: HttpClient) {}
-  getAllLocations(page: number = 1): void {
-    this.http
-      .get<{ info: any; results: ILocation[] }>(`${this.apiUrl}/?page=${page}`)
-      .pipe(
-        map((response) => {
-          this.locationsSubject.next(response.results);
-        })
-      )
-      .subscribe();
+
+  getAllLocations(): Observable<ILocation[]> {
+    if (this.locationsSubject.getValue().length > 0)
+      return this.locationsSubject;
+    return this.http.get<{ info: any; results: ILocation[] }>(this.apiUrl).pipe(
+      tap((response) => {
+        this.locationsSubject.next(response.results);
+      }),
+      map((response) => response.results)
+    );
   }
+
   getLocationsForPage(page: number): Observable<ILocation[]> {
     return this.locations$.pipe(
       map((locations) => {
