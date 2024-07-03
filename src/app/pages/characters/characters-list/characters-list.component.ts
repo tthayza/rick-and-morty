@@ -3,11 +3,12 @@ import { ICharacter } from '../../../models/character.model';
 import { CharacterService } from '../../../services/character.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CardComponent } from '../../../components/card/card.component';
+import { CardListingComponent } from '../../../components/card-listing/card-listing.component';
 
 @Component({
   selector: 'app-characters-list',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CardComponent],
+  imports: [RouterLink, RouterLinkActive, CardComponent, CardListingComponent],
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })

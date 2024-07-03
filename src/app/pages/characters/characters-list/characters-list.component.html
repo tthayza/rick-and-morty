@@ -1,7 +1,2 @@
-<div class="character-list">
-  <a routerLink="/homepage">Home</a>
-  <h2>Characters</h2>
-  @for (character of characters; track 0) {
-  <app-card [dataElement]="character" />
-  }
-</div>
+<a routerLink="/homepage">Home</a>
+<app-card-listing [elementsList]="characters"></app-card-listing>
