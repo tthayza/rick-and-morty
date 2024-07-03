@@ -6,5 +6,4 @@ export interface ILocation {
   residents: string[];
   url: string;
   created: string;
-  element: 'locations';
 }
