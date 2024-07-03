@@ -1,0 +1,13 @@
+<div>
+  <p>{{ dataElement.name }}</p>
+
+  <button
+    (click)="
+      isFavorite ? removeFavorite(dataElement.id) : addFavorite(dataElement.id)
+    "
+  >
+    <img src="{{ currentIcon }}" />
+
+    Add to Favorites
+  </button>
+</div>

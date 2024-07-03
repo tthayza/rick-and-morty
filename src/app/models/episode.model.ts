@@ -6,4 +6,5 @@ export interface IEpisode {
   characters: string[];
   url: string;
   created: string;
+  element: 'episodes';
 }

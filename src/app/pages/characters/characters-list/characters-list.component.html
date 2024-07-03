@@ -2,10 +2,6 @@
   <a routerLink="/homepage">Home</a>
   <h2>Characters</h2>
   @for (character of characters; track 0) {
-  <div>
-    <p>{{ character.name }}</p>
-    <img src="{{ character.image }}" />
-    <button>Add to Favorites</button>
-  </div>
+  <app-card [dataElement]="character" />
   }
 </div>

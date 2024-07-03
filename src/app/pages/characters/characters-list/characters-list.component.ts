@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ICharacter } from '../../../models/character.model';
 import { CharacterService } from '../../../services/character.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CardComponent } from '../../../components/card/card.component';
 
 @Component({
   selector: 'app-characters-list',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CardComponent],
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })

@@ -1,9 +1,10 @@
+import { IFavoritesIds } from './../../models/favorites-ids.model';
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { EpisodeService } from '../../services/episode.service';
 import { LocationService } from '../../services/location.service';
-import { IFavorites } from '../../models/favorites.model';
+import { IFavoritesElements } from '../../models/favorites-elements.model';
 
 @Component({
   selector: 'app-favorites',
@@ -13,7 +14,7 @@ import { IFavorites } from '../../models/favorites.model';
   styleUrl: './favorites.component.scss',
 })
 export class FavoritesComponent implements OnInit {
-  favorites: IFavorites = {
+  favorites: IFavoritesElements = {
     characters: [],
     episodes: [],
     locations: [],
