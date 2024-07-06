@@ -37,6 +37,12 @@ export class EpisodeService {
   }
 
   getMultipleEpisodes(ids: number[]): Observable<IEpisode[]> {
+    if (this.episodesSubject.getValue().length > 0) {
+      const filteredEpisodes = this.episodesSubject
+        .getValue()
+        .filter((episode) => ids.includes(episode.id));
+      return of(filteredEpisodes);
+    }
     const idsParam = ids.join(',');
     return this.http.get<IEpisode[]>(`${this.apiUrl}/${idsParam}`);
   }

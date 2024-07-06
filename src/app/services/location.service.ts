@@ -39,6 +39,12 @@ export class LocationService {
   }
 
   getMultipleLocations(ids: number[]): Observable<ILocation[]> {
+    if (this.locationsSubject.getValue().length > 0) {
+      const filteredLocations = this.locationsSubject
+        .getValue()
+        .filter((location) => ids.includes(location.id));
+      return of(filteredLocations);
+    }
     const idsParam = ids.join(',');
     return this.http.get<ILocation[]>(`${this.apiUrl}/${idsParam}`);
   }

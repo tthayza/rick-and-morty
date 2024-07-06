@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { ICharacter } from '../models/character.model';
 
 @Injectable({
@@ -44,6 +44,12 @@ export class CharacterService {
   }
 
   getMultipleCharacters(ids: number[]): Observable<ICharacter[]> {
+    if (this.charactersSubject.getValue().length > 0) {
+      const filteredCharacters = this.charactersSubject
+        .getValue()
+        .filter((character) => ids.includes(character.id));
+      return of(filteredCharacters);
+    }
     const idsParam = ids.join(',');
     return this.http.get<ICharacter[]>(`${this.apiUrl}/${idsParam}`);
   }
