@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IFavoritesIds } from '../models/favorites-ids.model';
-
+import * as CryptoJS from 'crypto-js';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,6 +13,44 @@ export class FavoriteService {
     episodes: [],
     locations: [],
   };
+
+  private storageKey = 'favorites';
+  private secretKey = 'key';
+
+  constructor() {
+    this.loadFavoritesFromLocalStorage();
+  }
+
+  private encrypt(data: string): string {
+    return CryptoJS.AES.encrypt(data, this.secretKey).toString();
+  }
+
+  private decrypt(data: string): string {
+    const bytes = CryptoJS.AES.decrypt(data, this.secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  }
+
+  private loadFavoritesFromLocalStorage(): void {
+    const encryptedFavorites = localStorage.getItem(this.storageKey);
+    if (encryptedFavorites) {
+      try {
+        const decryptedFavorites = this.decrypt(encryptedFavorites);
+        if (decryptedFavorites) {
+          this.favoritesIds = JSON.parse(decryptedFavorites);
+        }
+      } catch (error) {
+        console.error(
+          'Error decrypting or parsing favorites from local storage:',
+          error
+        );
+        this.favoritesIds = {
+          characters: [],
+          episodes: [],
+          locations: [],
+        };
+      }
+    }
+  }
 
   getFavoritesFromType(
     type: 'characters' | 'episodes' | 'locations'
@@ -49,6 +86,8 @@ export class FavoriteService {
   }
 
   saveFavoritesToLocalStorage(): void {
-    localStorage.setItem('favorites', JSON.stringify(this.favoritesIds));
+    const favoritesString = JSON.stringify(this.favoritesIds);
+    const encryptedFavorites = this.encrypt(favoritesString);
+    localStorage.setItem(this.storageKey, encryptedFavorites);
   }
 }
