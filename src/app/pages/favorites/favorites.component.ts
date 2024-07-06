@@ -1,20 +1,27 @@
-import { IFavoritesIds } from './../../models/favorites-ids.model';
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { EpisodeService } from '../../services/episode.service';
 import { LocationService } from '../../services/location.service';
-import { IFavoritesElements } from '../../models/favorites-elements.model';
+import { CardListingComponent } from '../../components/card-listing/card-listing.component';
+import { ICharacter } from '../../models/character.model';
+import { IEpisode } from '../../models/episode.model';
+import { ILocation } from '../../models/location.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [],
+  imports: [CardListingComponent, CommonModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
 })
 export class FavoritesComponent implements OnInit {
-  favorites: IFavoritesElements = {
+  favorites: {
+    characters: ICharacter[];
+    episodes: IEpisode[];
+    locations: ILocation[];
+  } = {
     characters: [],
     episodes: [],
     locations: [],
@@ -50,7 +57,7 @@ export class FavoritesComponent implements OnInit {
       this.locationService
         .getMultipleLocations(favoriteIds)
         .subscribe((data) => {
-          this.favorites.locations = [...data];
+          this.favorites.locations = data;
         });
     }
   }
@@ -59,7 +66,7 @@ export class FavoritesComponent implements OnInit {
     const favoriteIds = this.favoriteService.getFavoritesFromType('episodes');
     if (favoriteIds.length > 0) {
       this.episodeService.getMultipleEpisodes(favoriteIds).subscribe((data) => {
-        this.favorites.episodes = [...data];
+        this.favorites.episodes = data;
       });
     }
   }

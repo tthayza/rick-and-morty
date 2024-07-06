@@ -1,1 +1,3 @@
-<p>favorites works!</p>
+@for (item of favorites | keyvalue ; track 0) {
+<app-card-listing [elementsList]="item.value"> </app-card-listing>
+}
