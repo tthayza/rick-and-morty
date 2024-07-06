@@ -22,6 +22,5 @@ export class CharactersListComponent implements OnInit {
     this.characterService
       .getAllCharacters()
       .subscribe((data) => (this.characters = data));
-    console.log('chars', this.characters);
   }
 }
