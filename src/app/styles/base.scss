@@ -4,3 +4,16 @@
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
 }
+
+:root {
+  font-size: 62.5%;
+}
+
+button {
+  border: none;
+  background-color: inherit;
+}
+
+p {
+  color: $darkGray;
+}

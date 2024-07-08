@@ -1,3 +1,56 @@
-div {
+@import "../../../styles.scss";
+.card {
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 29.4rem;
+  height: 40rem;
+  border-radius: 0.8rem;
+  padding: 1.6rem;
+  &.card-light {
+    background-color: $bgCardLight;
+    &:hover {
+      background-color: $bgCardLightHover;
+      cursor: pointer;
+    }
+  }
+  figure {
+    width: 26.2rem;
+    height: 20rem;
+  }
+  .characterImg {
+    border-radius: 0.8rem;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .element-infos {
+    // border: solid red 3px;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    .character-infos {
+      display: flex;
+      flex-direction: column;
+      width: 16rem;
+      p {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+    }
+  }
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    // border: 1px solid tomato;
+  }
+  button {
+    cursor: pointer;
+  }
 }

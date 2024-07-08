@@ -3,11 +3,13 @@ import { ICharacter } from '../../models/character.model';
 import { IEpisode } from '../../models/episode.model';
 import { ILocation } from '../../models/location.model';
 import { FavoriteService } from '../../services/favorite.service';
+import { ButtonComponent } from '../button/button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [],
+  imports: [ButtonComponent, CommonModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
@@ -25,9 +27,19 @@ export class CardComponent {
   }
   isFavorite!: boolean;
   elementType!: 'characters' | 'episodes' | 'locations' | undefined;
+  pulseIcon = '../../../assets/icons/pulse.svg';
+  alienIcon = '../../../assets/icons/alien-light.svg';
+  planetIcon = '../../../assets/icons/planet-light.svg';
+  infoIconLight = '../../../assets/icons/info-light.svg';
+  infoIconDark = '../../../assets/icons/info-dark.svg';
   currentIcon!: string;
+  currentCharacter?: ICharacter;
 
   constructor(private favoriteService: FavoriteService) {}
+
+  ngOnInit() {
+    this.elementType;
+  }
 
   checkIsFavorite(elementId: number) {
     if (this.elementType) {
@@ -50,6 +62,7 @@ export class CardComponent {
     switch (true) {
       case url.includes('character'):
         this.elementType = 'characters';
+        this.currentCharacter = this.dataElement as ICharacter;
         break;
 
       case url.includes('episode'):

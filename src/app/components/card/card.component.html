@@ -1,13 +1,61 @@
-<div>
-  <p>{{ dataElement.name }}</p>
+<div class="card card-light">
+  @if(elementType == "characters") {
+  <figure>
+    <img src="{{ currentCharacter?.image }}" class="characterImg" />
+  </figure>
+  }
+  <div class="element-infos">
+    <div>
+      <p
+        [ngStyle]="{
+          'font-weight': elementType == 'characters' ? '700' : '400'
+        }"
+      >
+        {{ dataElement.name }}
+      </p>
+      @if(elementType == "characters"){
+      <div class="character-infos">
+        <p>
+          <img src="{{ pulseIcon }}" />
+          {{ currentCharacter?.status }}
+        </p>
+        <p>
+          <img src="{{ alienIcon }}" />
+          {{ currentCharacter?.species }}
+        </p>
+        <p>
+          <img src="{{ planetIcon }}" />
+          {{ currentCharacter?.location?.name }}
+        </p>
+      </div>
+      }
+    </div>
 
-  <button
-    (click)="
-      isFavorite ? removeFavorite(dataElement.id) : addFavorite(dataElement.id)
-    "
-  >
-    <img src="{{ currentIcon }}" />
-
-    Add to Favorites
-  </button>
+    <div
+      class="action-buttons"
+      [ngStyle]="{
+        'flex-direction':
+          elementType == 'characters'
+            ? 'column'
+            : elementType == 'episodes'
+            ? 'row-reverse'
+            : 'column-reverse'
+      }"
+    >
+      <button
+        (click)="
+          isFavorite
+            ? removeFavorite(dataElement.id)
+            : addFavorite(dataElement.id)
+        "
+      >
+        <img src="{{ currentIcon }}" />
+      </button>
+      <app-button
+        iconLight="{{ infoIconLight }}"
+        iconDark="{{ infoIconDark }}"
+        textContent="Saiba Mais"
+      ></app-button>
+    </div>
+  </div>
 </div>

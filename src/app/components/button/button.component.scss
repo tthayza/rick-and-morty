@@ -1,0 +1,21 @@
+@import "../../../styles.scss";
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 3.2rem;
+  padding: 0.8rem;
+  width: 11.5rem;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background-color: $blueA;
+    color: $white;
+    img {
+      fill: white;
+    }
+  }
+}
