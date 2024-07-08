@@ -44,6 +44,8 @@ export class CharacterService {
   }
 
   getMultipleCharacters(ids: number[]): Observable<ICharacter[]> {
+    console.log('🚀 ~ CharacterService ~ getMultipleCharacters ~ ids:', ids);
+
     if (this.charactersSubject.getValue().length > 0) {
       const filteredCharacters = this.charactersSubject
         .getValue()
@@ -51,6 +53,10 @@ export class CharacterService {
       return of(filteredCharacters);
     }
     const idsParam = ids.join(',');
-    return this.http.get<ICharacter[]>(`${this.apiUrl}/${idsParam}`);
+    return this.http
+      .get<ICharacter[]>(`${this.apiUrl}/${idsParam}`)
+      .pipe(
+        map((response) => (Array.isArray(response) ? response : [response]))
+      );
   }
 }

@@ -35,39 +35,47 @@ export class FavoritesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadFavoriteCharacters();
-    this.loadFavoriteEpisodes();
-    this.loadFavoriteLocations();
+    this.loadFavorites();
   }
 
   loadFavoriteCharacters(): void {
     const favoriteIds = this.favoriteService.getFavoritesFromType('characters');
-    if (favoriteIds.length > 0) {
-      this.characterService
-        .getMultipleCharacters(favoriteIds)
-        .subscribe((data) => {
-          this.favorites.characters = data;
-        });
+    if (favoriteIds.length == 0) {
+      this.favorites.characters = [];
+      return;
     }
+    this.characterService
+      .getMultipleCharacters(favoriteIds)
+      .subscribe((data) => {
+        this.favorites.characters = data;
+      });
   }
 
   loadFavoriteLocations(): void {
     const favoriteIds = this.favoriteService.getFavoritesFromType('locations');
-    if (favoriteIds.length > 0) {
-      this.locationService
-        .getMultipleLocations(favoriteIds)
-        .subscribe((data) => {
-          this.favorites.locations = data;
-        });
+    if (favoriteIds.length == 0) {
+      this.favorites.locations = [];
+      return;
     }
+    this.locationService.getMultipleLocations(favoriteIds).subscribe((data) => {
+      this.favorites.locations = data;
+    });
   }
 
   loadFavoriteEpisodes(): void {
     const favoriteIds = this.favoriteService.getFavoritesFromType('episodes');
-    if (favoriteIds.length > 0) {
-      this.episodeService.getMultipleEpisodes(favoriteIds).subscribe((data) => {
-        this.favorites.episodes = data;
-      });
+    if (favoriteIds.length == 0) {
+      this.favorites.episodes = [];
+      return;
     }
+    this.episodeService.getMultipleEpisodes(favoriteIds).subscribe((data) => {
+      this.favorites.episodes = data;
+    });
+  }
+
+  loadFavorites(): void {
+    this.loadFavoriteCharacters();
+    this.loadFavoriteEpisodes();
+    this.loadFavoriteLocations();
   }
 }

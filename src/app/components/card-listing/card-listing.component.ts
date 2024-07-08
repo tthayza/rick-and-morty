@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { ICharacter } from '../../models/character.model';
 import { IEpisode } from '../../models/episode.model';
@@ -14,4 +14,10 @@ import { ILocation } from '../../models/location.model';
 export class CardListingComponent {
   @Input() elementsList: ICharacter[] | IEpisode[] | ILocation[] = [];
   @Input() titleList: string = '';
+  @Output() updated = new EventEmitter<void>();
+
+  refreshFavorites() {
+    this.updated.emit();
+    console.log('refresh');
+  }
 }

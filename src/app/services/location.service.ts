@@ -46,6 +46,10 @@ export class LocationService {
       return of(filteredLocations);
     }
     const idsParam = ids.join(',');
-    return this.http.get<ILocation[]>(`${this.apiUrl}/${idsParam}`);
+    return this.http
+      .get<ILocation[]>(`${this.apiUrl}/${idsParam}`)
+      .pipe(
+        map((response) => (Array.isArray(response) ? response : [response]))
+      );
   }
 }

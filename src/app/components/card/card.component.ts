@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICharacter } from '../../models/character.model';
 import { IEpisode } from '../../models/episode.model';
 import { ILocation } from '../../models/location.model';
@@ -17,25 +17,36 @@ export class CardComponent {
   set dataElement(data: ICharacter | IEpisode | ILocation) {
     this._dataElement = data;
     this.setElementType();
+    this.checkIsFavorite(this.dataElement.id);
   }
-
+  @Output() unfavorited = new EventEmitter<void>();
   get dataElement() {
     return this._dataElement;
   }
-  //verificar se elemento está na lista de favoritos para manipular isFav
-  isFavorite = false;
-  elementType: 'characters' | 'episodes' | 'locations' | undefined;
-  currentIcon = '../../../assets/icons/heart-light.svg';
+  isFavorite!: boolean;
+  elementType!: 'characters' | 'episodes' | 'locations' | undefined;
+  currentIcon!: string;
 
   constructor(private favoriteService: FavoriteService) {}
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(changes);
-  // }
+
+  checkIsFavorite(elementId: number) {
+    if (this.elementType) {
+      if (
+        this.favoriteService
+          .getFavorites(this.elementType)
+          .some((id) => elementId == id)
+      ) {
+        this.isFavorite = true;
+        this.currentIcon = '../../../assets/icons/heart-dark.svg';
+        return;
+      }
+    }
+    this.isFavorite = false;
+    this.currentIcon = '../../../assets/icons/heart-light.svg';
+  }
 
   setElementType() {
     const url = this.dataElement.url;
-    console.log('url', url);
-    //substituir switch por if
     switch (true) {
       case url.includes('character'):
         this.elementType = 'characters';
@@ -58,9 +69,9 @@ export class CardComponent {
   }
 
   removeFavorite(id: number) {
-    this.favoriteService.removeFavoriteItem(this.elementType, id);
     this.isFavorite = false;
     this.currentIcon = '../../../assets/icons/heart-light.svg';
-    //emitir evento (output para recarregar a lista)
+    this.favoriteService.removeFavoriteItem(this.elementType, id);
+    this.unfavorited.emit();
   }
 }

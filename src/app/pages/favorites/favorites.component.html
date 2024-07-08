@@ -1,3 +1,4 @@
 @for (item of favorites | keyvalue ; track 0) {
-<app-card-listing [elementsList]="item.value"> </app-card-listing>
+<app-card-listing [elementsList]="item.value" (updated)="loadFavorites()">
+</app-card-listing>
 }

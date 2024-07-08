@@ -44,6 +44,10 @@ export class EpisodeService {
       return of(filteredEpisodes);
     }
     const idsParam = ids.join(',');
-    return this.http.get<IEpisode[]>(`${this.apiUrl}/${idsParam}`);
+    return this.http
+      .get<IEpisode[]>(`${this.apiUrl}/${idsParam}`)
+      .pipe(
+        map((response) => (Array.isArray(response) ? response : [response]))
+      );
   }
 }

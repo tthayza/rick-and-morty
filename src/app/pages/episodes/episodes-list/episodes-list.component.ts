@@ -21,6 +21,5 @@ export class EpisodesListComponent implements OnInit {
     this.episodeService
       .getAllEpisodes()
       .subscribe((data) => (this.episodes = data));
-    console.log('eps', this.episodes);
   }
 }
