@@ -14,19 +14,16 @@
         {{ dataElement.name }}
       </p>
       @if(elementType == "characters"){
+
       <div class="character-infos">
+        @for (info of characterInfos; track 0) {
         <p>
-          <img src="{{ pulseIcon }}" />
-          {{ currentCharacter?.status }}
+          <span>
+            <img src="{{ info.icon }}" />
+          </span>
+          {{ info.textContent }}
         </p>
-        <p>
-          <img src="{{ alienIcon }}" />
-          {{ currentCharacter?.species }}
-        </p>
-        <p>
-          <img src="{{ planetIcon }}" />
-          {{ currentCharacter?.location?.name }}
-        </p>
+        }
       </div>
       }
     </div>

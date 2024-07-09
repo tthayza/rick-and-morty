@@ -5,6 +5,7 @@ import { ILocation } from '../../models/location.model';
 import { FavoriteService } from '../../services/favorite.service';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
+import { ICharacterCardInfos } from '../../models/character-card-info.model';
 
 @Component({
   selector: 'app-card',
@@ -27,13 +28,14 @@ export class CardComponent {
   }
   isFavorite!: boolean;
   elementType!: 'characters' | 'episodes' | 'locations' | undefined;
-  pulseIcon = '../../../assets/icons/pulse.svg';
-  alienIcon = '../../../assets/icons/alien-light.svg';
-  planetIcon = '../../../assets/icons/planet-light.svg';
+  currentIcon!: string;
+
+  /*icons. change according theme. */
   infoIconLight = '../../../assets/icons/info-light.svg';
   infoIconDark = '../../../assets/icons/info-dark.svg';
-  currentIcon!: string;
+
   currentCharacter?: ICharacter;
+  characterInfos?: ICharacterCardInfos[];
 
   constructor(private favoriteService: FavoriteService) {}
 
@@ -63,6 +65,20 @@ export class CardComponent {
       case url.includes('character'):
         this.elementType = 'characters';
         this.currentCharacter = this.dataElement as ICharacter;
+        this.characterInfos = [
+          {
+            icon: '../../../assets/icons/pulse.svg',
+            textContent: this.currentCharacter.status,
+          },
+          {
+            icon: '../../../assets/icons/alien-light.svg',
+            textContent: this.currentCharacter.species,
+          },
+          {
+            icon: '../../../assets/icons/planet-light.svg',
+            textContent: this.currentCharacter.location.name,
+          },
+        ];
         break;
 
       case url.includes('episode'):
