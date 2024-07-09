@@ -1,3 +1,5 @@
-@for (element of elementsList; track 0) {
-<app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />
-}
+<section class="card-list">
+  @for (element of elementsList; track 0) {
+  <app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />
+  }
+</section>

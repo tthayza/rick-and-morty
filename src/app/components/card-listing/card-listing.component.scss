@@ -1,0 +1,6 @@
+@import "../../../styles.scss";
+
+.card-list {
+  // border: 1px solid red;
+  @include wrapList;
+}

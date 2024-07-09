@@ -1,3 +1,6 @@
-@mixin alignmentButton($direction) {
-  align-self: $direction;
+@mixin wrapList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  justify-content: center;
 }
