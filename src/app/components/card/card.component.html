@@ -1,17 +1,30 @@
-<div class="card card-light">
+<div class="card card-light" [ngClass]="elementType">
   @if(elementType == "characters") {
   <figure>
     <img src="{{ currentCharacter?.image }}" class="characterImg" />
   </figure>
+  } @else if (elementType == "locations") {
+  <figure>
+    <img src="{{ iconCardLocation }}" class="locationIcon" />
+  </figure>
   }
   <div class="element-infos">
-    <div>
+    <div class="wrapper-card">
+      @if(elementType == "locations"){
+      <p>Planet</p>
+      }
       <p
         [ngStyle]="{
           'font-weight': elementType == 'characters' ? '700' : '400'
         }"
       >
-        {{ dataElement.name }}
+        @if(elementType == "episodes"){
+        <img src="{{ iconCardEpisode }}" />
+        }
+
+        {{ dataElement.name }} @if(elementType == "episodes") {
+        {{ "|" + " " + currentEpisode?.episode }}
+        }
       </p>
       @if(elementType == "characters"){
 
@@ -28,17 +41,7 @@
       }
     </div>
 
-    <div
-      class="action-buttons"
-      [ngStyle]="{
-        'flex-direction':
-          elementType == 'characters'
-            ? 'column'
-            : elementType == 'episodes'
-            ? 'row-reverse'
-            : 'column-reverse'
-      }"
-    >
+    <div class="action-buttons">
       <button
         (click)="
           isFavorite

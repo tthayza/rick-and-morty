@@ -37,6 +37,12 @@ export class CardComponent {
   currentCharacter?: ICharacter;
   characterInfos?: ICharacterCardInfos[];
 
+  currentEpisode?: IEpisode;
+  iconCardEpisode = '../../../assets/icons/play-light.svg';
+
+  currentLocation?: ILocation;
+  iconCardLocation = '../../../assets/icons/planet-light.svg';
+
   constructor(private favoriteService: FavoriteService) {}
 
   ngOnInit() {
@@ -83,6 +89,8 @@ export class CardComponent {
 
       case url.includes('episode'):
         this.elementType = 'episodes';
+        this.currentEpisode = this.dataElement as IEpisode;
+
         break;
 
       case url.includes('location'):
