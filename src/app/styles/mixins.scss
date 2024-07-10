@@ -1,6 +1,19 @@
 @mixin wrapList {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.6rem;
+  gap: 3.2rem;
   justify-content: center;
+}
+
+@mixin justifying($justifying) {
+  display: flex;
+  justify-content: $justifying;
+}
+@mixin alignment($align) {
+  display: flex;
+  align-items: $align;
+}
+@mixin flex-justify-align($align, $justifying) {
+  @include alignment($align);
+  justify-content: $justifying;
 }
