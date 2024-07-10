@@ -12,6 +12,9 @@
 button {
   border: none;
   background-color: inherit;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 p {
