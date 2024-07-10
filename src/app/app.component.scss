@@ -1,1 +1,6 @@
 @import "../styles.scss";
+
+.main {
+  @include alignment(center);
+  flex-direction: column;
+}

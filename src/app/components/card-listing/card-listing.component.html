@@ -1,5 +1,7 @@
-<section class="card-list">
-  @for (element of elementsList; track 0) {
-  <app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />
-  }
+<section class="wrapper-card-list">
+  <div class="card-list">
+    @for (element of elementsList; track 0) {
+    <app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />
+    }
+  </div>
 </section>

@@ -1,6 +1,9 @@
 @import "../../../styles.scss";
 
-.card-list {
-  // border: 1px solid red;
-  @include wrapList;
+.wrapper-card-list {
+  @include justifying(center);
+  padding: 0 26rem;
+  .card-list {
+    @include wrapList;
+  }
 }
