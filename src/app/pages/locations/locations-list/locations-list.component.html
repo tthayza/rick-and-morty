@@ -1,5 +1,7 @@
-<div class="character-list">
-  <a routerLink="/homepage">Home</a>
-  <h2>Locations</h2>
-  <app-card-listing [elementsList]="locations"></app-card-listing>
-</div>
+<a routerLink="/homepage">Home</a>
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+/>
+<app-card-listing [elementsList]="locations" />

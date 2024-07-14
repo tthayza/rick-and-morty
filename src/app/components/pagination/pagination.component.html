@@ -1,0 +1,26 @@
+<section class="section-pagination">
+  <div class="wrapper-pagination">
+    <button [disabled]="currentPage === 1" (click)="previousGroup()">
+      <img src="../../../assets/icons/caret-left-light.svg" />
+    </button>
+
+    <ng-container>
+      @for (page of visiblePages; track page) {
+
+      <button
+        [ngClass]="{
+          active: page === currentPage,
+          'inner-button': true
+        }"
+        (click)="changePage(page)"
+      >
+        {{ page }}
+      </button>
+      }
+    </ng-container>
+
+    <button [disabled]="currentPage === totalPages" (click)="nextGroup()">
+      <img src="../../../assets/icons/caret-right-light.svg" />
+    </button>
+  </div>
+</section>

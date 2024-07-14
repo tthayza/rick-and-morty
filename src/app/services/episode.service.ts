@@ -8,28 +8,41 @@ import { IEpisode } from '../models/episode.model';
 })
 export class EpisodeService {
   private apiUrl = 'https://rickandmortyapi.com/api/episode';
-  private episodesSubject = new BehaviorSubject<IEpisode[]>([]);
+  private episodesSubject = new BehaviorSubject<{
+    [page: number]: IEpisode[];
+  }>([]);
   episodes$ = this.episodesSubject.asObservable();
-  private episodesPerPage = 14;
+  private totalPagesSubject = new BehaviorSubject<number>(0);
+  totalPages$ = this.totalPagesSubject.asObservable();
   constructor(private http: HttpClient) {}
 
-  getAllEpisodes(): Observable<IEpisode[]> {
-    if (this.episodesSubject.getValue().length > 0) return this.episodesSubject;
-    return this.http.get<{ info: any; results: IEpisode[] }>(this.apiUrl).pipe(
+  getAllEpisodes(page: number = 1): Observable<IEpisode[]> {
+    const currentPages = this.episodesSubject.getValue();
+    if (currentPages[page]) {
+      return of(currentPages[page]);
+    }
+
+    return this.getEpisodesPage(page).pipe(
       tap((response) => {
-        this.episodesSubject.next(response.results);
+        const updatedPages = { ...currentPages, [page]: response.results };
+        this.episodesSubject.next(updatedPages);
+        if (this.totalPagesSubject.getValue() === 0) {
+          this.totalPagesSubject.next(response.info.pages);
+        }
       }),
       map((response) => response.results)
     );
   }
 
   getEpisodesForPage(page: number): Observable<IEpisode[]> {
-    return this.episodes$.pipe(
-      map((episodes) => {
-        const startIndex = (page - 1) * this.episodesPerPage;
-        return episodes.slice(startIndex, startIndex + this.episodesPerPage);
-      })
-    );
+    return this.getAllEpisodes(page);
+  }
+
+  private getEpisodesPage(
+    page: number
+  ): Observable<{ info: any; results: IEpisode[] }> {
+    const url = `${this.apiUrl}/?page=${page}`;
+    return this.http.get<{ info: any; results: IEpisode[] }>(url);
   }
 
   getEpisodeById(id: number): Observable<IEpisode> {
@@ -37,10 +50,14 @@ export class EpisodeService {
   }
 
   getMultipleEpisodes(ids: number[]): Observable<IEpisode[]> {
-    if (this.episodesSubject.getValue().length > 0) {
-      const filteredEpisodes = this.episodesSubject
-        .getValue()
-        .filter((episode) => ids.includes(episode.id));
+    const currentEpisodes = Object.values(
+      this.episodesSubject.getValue()
+    ).flat();
+
+    if (currentEpisodes.length > 0) {
+      const filteredEpisodes = currentEpisodes.filter((episode: IEpisode) =>
+        ids.includes(episode.id)
+      );
       return of(filteredEpisodes);
     }
     const idsParam = ids.join(',');
@@ -49,5 +66,18 @@ export class EpisodeService {
       .pipe(
         map((response) => (Array.isArray(response) ? response : [response]))
       );
+  }
+
+  getTotalPages(): Observable<number> {
+    if (this.totalPagesSubject.getValue() > 0) {
+      return this.totalPages$;
+    }
+
+    return this.getEpisodesPage(1).pipe(
+      tap((response) => {
+        this.totalPagesSubject.next(response.info.pages);
+      }),
+      map((response) => response.info.pages)
+    );
   }
 }

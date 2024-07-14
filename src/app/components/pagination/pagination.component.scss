@@ -1,0 +1,23 @@
+@import "../../../styles.scss";
+.section-pagination {
+  // border: solid 3px rosybrown;
+  @include flex-justify-align(center, center);
+  .wrapper-pagination {
+    gap: 4rem;
+    // border: solid 3px teal;
+    @include flex-justify-align(center, center);
+    button {
+      width: 4.7rem;
+      height: 4.7rem;
+      &.inner-button {
+        border: 0.1rem solid $darkGray;
+        border-radius: 99rem;
+      }
+      &.active {
+        color: $white;
+        background-color: $blueA;
+        border: none;
+      }
+    }
+  }
+}

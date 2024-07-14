@@ -11,11 +11,11 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() iconLight?: string;
   @Input() iconDark?: string;
-  @Input() textContent!: string;
+  @Input() textContent?: string;
 
   currentIcon?: string;
 
   ngOnInit() {
-    this.currentIcon = this.iconDark;
+    this.currentIcon = this.iconLight;
   }
 }
