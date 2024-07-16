@@ -1,32 +1,4 @@
-<div class="character-list">
-  <h2>Characters</h2>
-  @for (character of characters.slice(0,8); track character) {
-  <div>
-    <p>{{ character.name }}</p>
-    <p>{{ character.id }}</p>
-    <img src="{{ character.image }}" />
-    <button>Add to Favorites</button>
-  </div>
-  }
-</div>
-<div class="episodes-list">
-  <h2>Episodes</h2>
-
-  @for (episode of episodes.slice(0,5); track 0) {
-  <div>
-    <p>{{ episode.name }}</p>
-    <p>{{ episode.id }}</p>
-    <button>Add to Favorites</button>
-  </div>
-  }
-</div>
-<div class="location-list">
-  <h2>Locations</h2>
-  @for (location of locations.slice(0,7); track 0) {
-  <div>
-    <p>{{ location.name }}</p>
-    <p>{{ location.id }}</p>
-    <button>Add to Favorites</button>
-  </div>
-  }
-</div>
+<app-banner imgBanner=""></app-banner>
+@for (item of elements | keyvalue ; track 0) {
+<app-card-listing [elementsList]="item.value" />
+}
