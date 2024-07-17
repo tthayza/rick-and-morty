@@ -1,5 +1,5 @@
 import { ICharacter } from './../../models/character.model';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CharactersListComponent } from '../characters/characters-list/characters-list.component';
 import { EpisodesListComponent } from '../episodes/episodes-list/episodes-list.component';
 import { LocationsListComponent } from '../locations/locations-list/locations-list.component';
@@ -11,6 +11,7 @@ import { ILocation } from '../../models/location.model';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { CardListingComponent } from '../../components/card-listing/card-listing.component';
 import { CommonModule } from '@angular/common';
+import { ETheme } from '../../enums/theme.enum';
 
 @Component({
   selector: 'app-home-page',
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
+  @Input() currentTheme!: ETheme;
   elements: {
     characters: ICharacter[];
     episodes: IEpisode[];

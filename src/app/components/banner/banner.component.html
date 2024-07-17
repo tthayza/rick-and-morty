@@ -1,9 +1,39 @@
-<section>
-  <div>
+<section class="header-section">
+  <div class="top-header">
     <a>
       <img src="{{ logoRM }}" />
     </a>
-    <app-button [iconDark]=""></app-button>
+    <app-button
+      [iconDark]="bannerIcons.heart.dark"
+      [iconLight]="bannerIcons.heart.light"
+      textContent="Lista de Favoritos"
+    ></app-button>
   </div>
-  <div></div>
+  <div class="bottom-header">
+    <div class="heading">
+      <h1>
+        Saiba tudo em <br />
+        um só <span>lugar.</span>
+      </h1>
+      <p>Personagens, localizações, episódios e muito mais.</p>
+      <div class="theme-buttons">
+        <app-button
+          textContent="Escuro"
+          [iconDark]="bannerIcons.darkIcon.dark"
+          [iconLight]="bannerIcons.darkIcon.light"
+          (click)="toggleTheme('dark')"
+        ></app-button>
+        <app-button
+          textContent="Claro"
+          [iconDark]="bannerIcons.lightIcon.dark"
+          [iconLight]="bannerIcons.lightIcon.light"
+          (click)="toggleTheme('light')"
+        ></app-button>
+      </div>
+      <p>{{ currentMessage }}</p>
+    </div>
+    <figure>
+      <img src="{{ bannerIcons.characterImage.light }}" />
+    </figure>
+  </div>
 </section>

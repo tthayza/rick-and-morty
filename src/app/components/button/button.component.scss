@@ -2,10 +2,12 @@
 
 .button {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-evenly;
   border-radius: 3.2rem;
   padding: 0.8rem;
-  width: 11.5rem;
+  // width: 11.5rem;
+  width: fit-content;
+  gap: 0.6rem;
   align-items: center;
 
   &:hover {
