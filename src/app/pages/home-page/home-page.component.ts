@@ -28,7 +28,7 @@ import { ETheme } from '../../enums/theme.enum';
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  @Input() currentTheme!: ETheme;
+  // @Input() currentTheme!: ETheme;
   elements: {
     characters: ICharacter[];
     episodes: IEpisode[];
@@ -65,5 +65,13 @@ export class HomePageComponent {
     this.locationService.getLocationsForPage(page).subscribe((locations) => {
       this.elements.locations = locations;
     });
+  }
+
+  currentTheme: string = ETheme.LightTheme; // Define o tema padrão
+
+  onThemeChange(theme: ETheme) {
+    this.currentTheme = ETheme.LightTheme
+      ? ETheme.LightTheme
+      : ETheme.DarkTheme;
   }
 }

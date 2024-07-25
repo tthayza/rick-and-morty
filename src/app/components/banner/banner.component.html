@@ -1,4 +1,4 @@
-<section class="header-section">
+<section [ngClass]="['header-section', currentTheme]">
   <div class="top-header">
     <a>
       <img src="{{ logoRM }}" />
@@ -11,7 +11,7 @@
   </div>
   <div class="bottom-header">
     <div class="heading">
-      <h1>
+      <h1 [ngClass]="[currentTheme]">
         Saiba tudo em <br />
         um só <span>lugar.</span>
       </h1>
@@ -33,7 +33,7 @@
       <p>{{ currentMessage }}</p>
     </div>
     <figure>
-      <img src="{{ bannerIcons.characterImage.light }}" />
+      <img src="{{ currentImage }}" />
     </figure>
   </div>
 </section>

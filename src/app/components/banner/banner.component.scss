@@ -3,6 +3,9 @@
 .header-section {
   flex-direction: column;
   width: 100%;
+  &.dark {
+    background-color: black;
+  }
   @include alignment(center);
   .top-header {
     width: inherit;
@@ -19,6 +22,9 @@
 
       h1 {
         font-size: 4.8rem;
+        &.dark {
+          color: white;
+        }
         span {
           color: $blueA;
         }
