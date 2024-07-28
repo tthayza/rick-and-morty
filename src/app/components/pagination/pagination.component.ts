@@ -35,6 +35,7 @@ export class PaginationComponent implements OnInit {
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
+      console.log('current', this.currentPage);
       this.pageChange.emit(this.currentPage);
       this.updateVisiblePages();
     }
@@ -60,6 +61,7 @@ export class PaginationComponent implements OnInit {
     if (this.currentPage > 1) {
       if (this.currentPage === this.visiblePages[0]) {
         this.currentPage = this.visiblePages[0] - 1;
+        this.changePage(this.currentPage);
         this.updateVisiblePages();
       } else {
         this.changePage(this.currentPage - 1);
@@ -69,10 +71,16 @@ export class PaginationComponent implements OnInit {
 
   nextGroup() {
     if (this.currentPage < this.totalPages) {
+      console.log('é maior', this.currentPage < this.totalPages);
       if (
         this.currentPage === this.visiblePages[this.visiblePages.length - 1]
       ) {
+        console.log(
+          'if 2 lenght -1',
+          this.visiblePages[this.visiblePages.length - 1]
+        );
         this.currentPage = this.visiblePages[this.visiblePages.length - 1] + 1;
+        this.changePage(this.currentPage);
         this.updateVisiblePages();
       } else {
         this.changePage(this.currentPage + 1);
