@@ -80,4 +80,14 @@ export class EpisodeService {
       map((response) => response.info.pages)
     );
   }
+
+  filterEpisodes(valueName: string): Observable<IEpisode[]> {
+    if (!valueName) {
+      return of([]);
+    }
+    const url = `${this.apiUrl}/?name=${encodeURIComponent(valueName)}`;
+    return this.http
+      .get<{ info: any; results: IEpisode[] }>(url)
+      .pipe(map((response) => response.results || []));
+  }
 }

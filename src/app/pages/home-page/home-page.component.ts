@@ -12,6 +12,7 @@ import { BannerComponent } from '../../components/banner/banner.component';
 import { CardListingComponent } from '../../components/card-listing/card-listing.component';
 import { CommonModule } from '@angular/common';
 import { ETheme } from '../../enums/theme.enum';
+import { FilterComponent } from '../../components/filter/filter.component';
 
 @Component({
   selector: 'app-home-page',
@@ -22,6 +23,7 @@ import { ETheme } from '../../enums/theme.enum';
     LocationsListComponent,
     BannerComponent,
     CardListingComponent,
+    FilterComponent,
     CommonModule,
   ],
   templateUrl: './home-page.component.html',
@@ -39,6 +41,11 @@ export class HomePageComponent {
     locations: [],
   };
 
+  filteredCharacters?: ICharacter[] | [];
+  filteredElements: any[] = [];
+  currentFilter: string | null = null;
+  searchTerm: string = '';
+  currentTheme: ETheme = ETheme.LightTheme;
   constructor(
     private characterService: CharacterService,
     private episodeService: EpisodeService,
@@ -67,11 +74,48 @@ export class HomePageComponent {
     });
   }
 
-  currentTheme: string = ETheme.LightTheme; // Define o tema padrão
+  searchCharacters(value: string) {
+    if (value) {
+      this.characterService.filterCharacters(value).subscribe((characters) => {
+        this.filteredElements = characters;
+      });
+    }
+  }
+  searchLocations(value: string) {
+    if (value) {
+      this.locationService.filterLocations(value).subscribe((locations) => {
+        this.filteredElements = locations;
+      });
+    }
+  }
+  searchEpisodes(value: string) {
+    if (value) {
+      this.episodeService.filterEpisodes(value).subscribe((episodes) => {
+        this.filteredElements = episodes;
+      });
+    }
+  }
 
   onThemeChange(theme: ETheme) {
-    this.currentTheme = ETheme.LightTheme
-      ? ETheme.LightTheme
-      : ETheme.DarkTheme;
+    this.currentTheme = theme;
+  }
+
+  onSearch(searchTerm: string) {
+    this.searchTerm = searchTerm.toLowerCase();
+  }
+
+  onFilterChange(filter: string) {
+    this.currentFilter = filter;
+  }
+
+  applyFilter() {
+    this.filteredElements = [];
+    if (this.currentFilter === 'Personagens') {
+      this.searchCharacters(this.searchTerm);
+    } else if (this.currentFilter === 'Localizações') {
+      this.searchLocations(this.searchTerm);
+    } else if (this.currentFilter === 'Episódios') {
+      this.searchEpisodes(this.searchTerm);
+    }
   }
 }

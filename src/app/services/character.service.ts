@@ -14,7 +14,7 @@ export class CharacterService {
   private totalPagesSubject = new BehaviorSubject<number>(0);
   characters$ = this.charactersSubject.asObservable();
   totalPages$ = this.totalPagesSubject.asObservable();
-  private charactersPerPage = 12;
+  //private charactersPerPage = 12;
 
   constructor(private http: HttpClient) {}
 
@@ -23,8 +23,6 @@ export class CharacterService {
     if (currentPages[page]) {
       return of(currentPages[page]);
     }
-
-    // const url = `${this.apiUrl}/?page=${page}`;
     return this.getCharactersPage(page).pipe(
       tap((response) => {
         const updatedPages = { ...currentPages, [page]: response.results };
@@ -83,28 +81,14 @@ export class CharacterService {
       map((response) => response.info.pages)
     );
   }
+
+  filterCharacters(valueName: string): Observable<ICharacter[]> {
+    if (!valueName) {
+      return of([]);
+    }
+    const url = `${this.apiUrl}/?name=${encodeURIComponent(valueName)}`;
+    return this.http
+      .get<{ info: any; results: ICharacter[] }>(url)
+      .pipe(map((response) => response.results || []));
+  }
 }
-
-//   if (this.charactersSubject.getValue().length > 0)
-//     return this.charactersSubject;
-//   return this.http
-//     .get<{ info: any; results: ICharacter[] }>(this.apiUrl)
-//     .pipe(
-//       tap((response) => {
-//         this.charactersSubject.next(response.results);
-//       }),
-//       map((response) => response.results)
-//     );
-// }
-
-// getCharactersForPage(page: number): Observable<ICharacter[]> {
-//   return this.characters$.pipe(
-//     map((characters) => {
-//       const startIndex = (page - 1) * this.charactersPerPage;
-//       return characters.slice(
-//         startIndex,
-//         startIndex + this.charactersPerPage
-//       );
-//     })
-//   );
-// }

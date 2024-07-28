@@ -82,4 +82,14 @@ export class LocationService {
       map((response) => response.info.pages)
     );
   }
+
+  filterLocations(valueName: string): Observable<ILocation[]> {
+    if (!valueName) {
+      return of([]);
+    }
+    const url = `${this.apiUrl}/?name=${encodeURIComponent(valueName)}`;
+    return this.http
+      .get<{ info: any; results: ILocation[] }>(url)
+      .pipe(map((response) => response.results || []));
+  }
 }

@@ -1,0 +1,27 @@
+@import "../../../styles.scss";
+.filter-section {
+  @include flex-justify-align(space-around, center);
+
+  .input-filter input {
+    border-radius: 3.2rem;
+    padding: 1.2rem;
+    width: 30rem;
+
+    &.dark {
+      border: none;
+      background-color: $blackA;
+      color: rgba(228, 244, 244, 0.5); /* Aplicar cor ao texto do input */
+      &::placeholder {
+        color: rgba(228, 244, 244, 0.5); /* Aplicar cor ao placeholder */
+      }
+    }
+
+    &.light {
+      border: 0.1rem solid $darkGray;
+    }
+  }
+
+  .selection-filters {
+    @include alignment(center);
+  }
+}

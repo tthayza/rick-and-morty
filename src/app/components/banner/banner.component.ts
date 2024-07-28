@@ -41,12 +41,10 @@ export class BannerComponent {
   }
   public toggleTheme(theme: string) {
     if (theme == 'light') {
-      console.log('entrou dark');
       this.currentTheme = ETheme.LightTheme;
       this.currentMessage = 'Wubba Lubba Dub Dub! Cuidado com os olhos.';
       this.currentImage = '../../../assets/light-banner.png';
     } else {
-      console.log('entrou light');
       this.currentTheme = ETheme.DarkTheme;
       this.currentMessage = 'Ai sim, Porr#@%&*';
       this.currentImage = '../../../assets/dark-banner.png';

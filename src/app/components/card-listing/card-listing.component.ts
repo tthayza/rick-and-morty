@@ -18,6 +18,5 @@ export class CardListingComponent {
 
   refreshFavorites() {
     this.updated.emit();
-    console.log('refresh');
   }
 }

@@ -1,0 +1,23 @@
+<section [ngClass]="['filter-section', currentTheme]">
+  <div class="input-filter">
+    <input
+      [ngClass]="currentTheme"
+      type="text"
+      placeholder="Personagens, episódios, localizações..."
+      (input)="onSearch($event)"
+    />
+    <img src="{{ currentSearchIcon }}" (click)="onFilter()" />
+  </div>
+  <div class="selection-filters">
+    <p>Filtrar por:</p>
+    <ng-container *ngFor="let item of elements; $index">
+      <app-button
+        [iconDark]="item.iconDark"
+        [iconLight]="item.iconLight"
+        [textContent]="item.name"
+        [class.active]="item.name === activeFilter"
+        (click)="toggleFilter(item.name)"
+      ></app-button>
+    </ng-container>
+  </div>
+</section>
