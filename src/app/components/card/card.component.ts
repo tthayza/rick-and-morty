@@ -6,11 +6,12 @@ import { FavoriteService } from '../../services/favorite.service';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { ICharacterCardInfos } from '../../models/character-card-info.model';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [ButtonComponent, CommonModule],
+  imports: [ButtonComponent, CommonModule, RouterModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })

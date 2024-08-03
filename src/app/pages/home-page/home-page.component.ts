@@ -13,6 +13,8 @@ import { CardListingComponent } from '../../components/card-listing/card-listing
 import { CommonModule } from '@angular/common';
 import { ETheme } from '../../enums/theme.enum';
 import { FilterComponent } from '../../components/filter/filter.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-home-page',
@@ -25,12 +27,13 @@ import { FilterComponent } from '../../components/filter/filter.component';
     CardListingComponent,
     FilterComponent,
     CommonModule,
+    RouterLink,
+    ButtonComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  // @Input() currentTheme!: ETheme;
   elements: {
     characters: ICharacter[];
     episodes: IEpisode[];
@@ -41,10 +44,21 @@ export class HomePageComponent {
     locations: [],
   };
 
-  filteredCharacters?: ICharacter[] | [];
+  keyToPortuguese: { [key: string]: string } = {
+    characters: 'Personagens',
+    episodes: 'Episódios',
+    locations: 'Localizações',
+  };
+
   filteredElements: any[] = [];
   currentFilter: string | null = null;
   searchTerm: string = '';
+  seeAllButton = {
+    textContent: 'Ver todos',
+    iconDark: '../../../assets/icons/squares-four-dark.svg',
+    iconLight: '../../../assets/icons/squares-four-light.svg',
+  };
+
   currentTheme: ETheme = ETheme.LightTheme;
   constructor(
     private characterService: CharacterService,

@@ -1,7 +1,7 @@
-<a routerLink="/homepage">Home</a>
+<app-banner></app-banner>
+<app-card-listing [elementsList]="episodes" [heading]="headingEpisodes" />
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (pageChange)="onPageChange($event)"
 />
-<app-card-listing [elementsList]="episodes" />

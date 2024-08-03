@@ -8,5 +8,14 @@
 @if (filteredElements.length > 0) {
 <app-card-listing [elementsList]="filteredElements" />
 } @else { @for (item of elements | keyvalue ; track 0) {
+<div class="heading">
+  <h2>{{ keyToPortuguese[item.key] }}</h2>
+  <app-button
+    routerLink="/{{ item.key }}"
+    [iconDark]="seeAllButton.iconDark"
+    [iconLight]="seeAllButton.iconLight"
+    [textContent]="seeAllButton.textContent"
+  ></app-button>
+</div>
 <app-card-listing [elementsList]="item.value" />
 } }

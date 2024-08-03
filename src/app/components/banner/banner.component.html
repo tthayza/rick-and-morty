@@ -1,9 +1,10 @@
 <section [ngClass]="['header-section', currentTheme]">
   <div class="top-header">
-    <a>
+    <a routerLink="/">
       <img src="{{ logoRM }}" />
     </a>
     <app-button
+      routerLink="/favorites"
       [iconDark]="bannerIcons.heart.dark"
       [iconLight]="bannerIcons.heart.light"
       textContent="Lista de Favoritos"

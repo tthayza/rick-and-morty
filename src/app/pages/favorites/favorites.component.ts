@@ -8,11 +8,12 @@ import { ICharacter } from '../../models/character.model';
 import { IEpisode } from '../../models/episode.model';
 import { ILocation } from '../../models/location.model';
 import { CommonModule } from '@angular/common';
+import { BannerComponent } from '../../components/banner/banner.component';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CardListingComponent, CommonModule],
+  imports: [CardListingComponent, CommonModule, BannerComponent],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
 })

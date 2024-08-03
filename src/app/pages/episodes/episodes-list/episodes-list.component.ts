@@ -4,11 +4,13 @@ import { EpisodeService } from '../../../services/episode.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CardListingComponent } from '../../../components/card-listing/card-listing.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { BannerComponent } from '../../../components/banner/banner.component';
 
 @Component({
   selector: 'app-episodes-list',
   standalone: true,
   imports: [
+    BannerComponent,
     RouterLink,
     RouterLinkActive,
     CardListingComponent,
@@ -21,6 +23,11 @@ export class EpisodesListComponent implements OnInit {
   episodes: IEpisode[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
+  headingEpisodes = {
+    iconDark: '../../../../assets/icons/play-dark.svg',
+    iconLight: '../../../../assets/icons/play-light.svg',
+    textContent: 'Mais episódios',
+  };
 
   constructor(private episodeService: EpisodeService) {}
 

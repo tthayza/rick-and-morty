@@ -1,4 +1,12 @@
 <section class="wrapper-card-list">
+  @if (heading) {
+
+  <div class="heading">
+    <img src="{{ heading.iconLight }}" />
+    <h2>{{ heading.textContent }}</h2>
+  </div>
+  }
+
   <div class="card-list">
     @for (element of elementsList; track 0) {
     <app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />

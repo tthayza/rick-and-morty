@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { ETheme } from '../../enums/theme.enum';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [ButtonComponent, CommonModule],
+  imports: [ButtonComponent, CommonModule, RouterLink],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })

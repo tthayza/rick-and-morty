@@ -4,11 +4,13 @@ import { LocationService } from '../../../services/location.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CardListingComponent } from '../../../components/card-listing/card-listing.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { BannerComponent } from '../../../components/banner/banner.component';
 
 @Component({
   selector: 'app-locations-list',
   standalone: true,
   imports: [
+    BannerComponent,
     RouterLink,
     RouterLinkActive,
     CardListingComponent,

@@ -1,9 +1,9 @@
 @import "../../../styles.scss";
 .card {
-  @include flex-justify-align(center, space-around);
+  @include flex-justify-align(center, center);
   flex-direction: column;
   border-radius: 0.8rem;
-  padding: 0.4rem;
+  padding: 0.2rem;
   &.card-light {
     background-color: $bgCardLight;
   }
@@ -33,7 +33,7 @@
     width: 34.4rem;
     height: 42rem;
     figure {
-      width: 26.2rem;
+      width: 90%;
       height: 20rem;
     }
     .characterImg {

@@ -1,0 +1,9 @@
+@import "../../../styles.scss";
+.heading {
+  margin-left: 20%;
+  @include alignment(center);
+  gap: 1.2rem;
+  h2 {
+    font-size: 2.4rem;
+  }
+}
