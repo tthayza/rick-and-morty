@@ -1,5 +1,12 @@
-<app-banner></app-banner>
-<app-card-listing [elementsList]="episodes" [heading]="headingEpisodes" />
+<app-episode-detail
+  [currentEpisode]="currentEpisode"
+  (unfavorited)="refreshFavorites()"
+></app-episode-detail>
+<app-card-listing
+  [elementsList]="episodes"
+  [heading]="headingEpisodes"
+  (cardDetailRequested)="onCardDetailRequested($event)"
+/>
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"

@@ -9,7 +9,11 @@
 
   <div class="card-list">
     @for (element of elementsList; track 0) {
-    <app-card [dataElement]="element" (unfavorited)="refreshFavorites()" />
+    <app-card
+      [dataElement]="element"
+      (unfavorited)="refreshFavorites()"
+      (detailRequested)="onDetailRequested($event)"
+    />
     }
   </div>
 </section>

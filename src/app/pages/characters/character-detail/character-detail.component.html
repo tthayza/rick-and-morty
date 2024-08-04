@@ -1,1 +1,42 @@
-<p>chracter-detail works!</p>
+<div class="top-header">
+  <a routerLink="/">
+    <img src="{{ logoRM }}" />
+  </a>
+  <app-button
+    routerLink="/favorites"
+    [iconDark]="bannerIcons.heart.dark"
+    [iconLight]="bannerIcons.heart.light"
+    textContent="Lista de Favoritos"
+  ></app-button>
+</div>
+<img src="{{ currentCharacter?.image }}" />
+<p>
+  {{ currentCharacter?.name }}
+  <button
+    (click)="
+      isFavorite
+        ? removeFavorite(currentId ? currentId : 1)
+        : addFavorite(currentId ? currentId : 1)
+    "
+  >
+    <img src="{{ currentFavoriteIcon }}" />
+  </button>
+</p>
+
+<p>Participou de {{ currentCharacter?.episode?.length }} episódios</p>
+
+<p>{{ currentCharacter?.status }}</p>
+<p>{{ currentCharacter?.gender }}</p>
+<p>{{ currentCharacter?.species }}</p>
+
+<div>
+  <img src="" />
+  <p>Planet</p>
+  <p>{{ currentCharacter?.origin?.name }}</p>
+  <app-button textContent="Saiba mais"></app-button>
+</div>
+<div>
+  <img src="" />
+  <p>{{ currentCharacter?.location?.name }}</p>
+  <app-button textContent="Saiba mais"></app-button>
+</div>

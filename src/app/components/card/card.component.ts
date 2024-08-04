@@ -24,6 +24,7 @@ export class CardComponent {
     this.checkIsFavorite(this.dataElement.id);
   }
   @Output() unfavorited = new EventEmitter<void>();
+  @Output() detailRequested = new EventEmitter<{ type: string; id: number }>();
   get dataElement() {
     return this._dataElement;
   }
@@ -48,6 +49,15 @@ export class CardComponent {
 
   ngOnInit() {
     this.elementType;
+  }
+
+  onDetailRequested() {
+    if (this.dataElement && this.elementType) {
+      this.detailRequested.emit({
+        type: this.elementType,
+        id: this.dataElement.id,
+      });
+    }
   }
 
   checkIsFavorite(elementId: number) {
@@ -83,7 +93,7 @@ export class CardComponent {
           },
           {
             icon: '../../../assets/icons/planet-light.svg',
-            textContent: this.currentCharacter.location.name,
+            textContent: this.currentCharacter.origin.name,
           },
         ];
         break;

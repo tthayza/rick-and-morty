@@ -16,8 +16,17 @@ export class CardListingComponent {
   @Input() elementsList: ICharacter[] | IEpisode[] | ILocation[] = [];
   @Input() heading?: IHeading;
   @Output() updated = new EventEmitter<void>();
+  @Output() cardDetailRequested = new EventEmitter<{
+    type: string;
+    id: number;
+  }>();
 
   refreshFavorites() {
     this.updated.emit();
+  }
+
+  onDetailRequested(event: { type: string; id: number }) {
+    // Reemite o evento para o componente pai
+    this.cardDetailRequested.emit(event);
   }
 }

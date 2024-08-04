@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ICharacter } from '../../../models/character.model';
 import { CharacterService } from '../../../services/character.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule,
+} from '@angular/router';
 import { CardComponent } from '../../../components/card/card.component';
 import { CardListingComponent } from '../../../components/card-listing/card-listing.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
@@ -15,6 +20,7 @@ import { CharacterDetailComponent } from '../character-detail/character-detail.c
     BannerComponent,
     RouterLink,
     RouterLinkActive,
+    RouterModule,
     CardComponent,
     CardListingComponent,
     PaginationComponent,
@@ -25,8 +31,11 @@ import { CharacterDetailComponent } from '../character-detail/character-detail.c
   styleUrl: './characters-list.component.scss',
 })
 export class CharactersListComponent implements OnInit {
+  @Output() updated = new EventEmitter<void>();
   characters: ICharacter[] = [];
   currentPage: number = 1;
+  currentCharacterId?: number;
+  currentCharacter?: ICharacter;
   totalPages: number = 0;
   headingCharacters = {
     iconDark: '../../../../assets/icons/smiley-dark.svg',
@@ -34,12 +43,31 @@ export class CharactersListComponent implements OnInit {
     textContent: 'Mais personagens',
   };
 
-  constructor(private characterService: CharacterService) {}
+  constructor(
+    private characterService: CharacterService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadCharacters(this.currentPage);
     this.characterService.getTotalPages().subscribe((pages) => {
       this.totalPages = pages;
+    });
+  }
+
+  onCardDetailRequested(event: { type: string; id: number }) {
+    this.router.navigate([`/${event.type}`, event.id]);
+
+    this.currentCharacterId = event.id;
+    console.log('characters-list', event.type, event.id);
+    this.getCharacterById(this.currentCharacterId);
+  }
+
+  getCharacterById(id: number) {
+    this.characterService.getCharacterById(id).subscribe((character) => {
+      this.currentCharacter = character as ICharacter;
+      console.log('current', this.currentCharacter);
+      console.log('locs', this.currentCharacter.location);
     });
   }
 
@@ -52,5 +80,8 @@ export class CharactersListComponent implements OnInit {
   onPageChange(page: number): void {
     this.currentPage = page;
     this.loadCharacters(this.currentPage);
+  }
+  refreshFavorites() {
+    this.updated.emit();
   }
 }

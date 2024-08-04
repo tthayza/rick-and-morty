@@ -1,5 +1,11 @@
-<app-character-detail></app-character-detail>
-<app-card-listing [elementsList]="characters" [heading]="headingCharacters" />
+<app-character-detail
+  [currentCharacter]="currentCharacter"
+></app-character-detail>
+<app-card-listing
+  [elementsList]="characters"
+  [heading]="headingCharacters"
+  (cardDetailRequested)="onCardDetailRequested($event)"
+/>
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
