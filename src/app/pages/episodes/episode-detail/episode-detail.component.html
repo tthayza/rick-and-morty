@@ -1,19 +1,35 @@
-<div class="top-header">
-  <a routerLink="/">
-    <img src="{{ logoRM }}" />
-  </a>
-  <app-button
-    routerLink="/favorites"
-    [iconDark]="bannerIcons.heart.dark"
-    [iconLight]="bannerIcons.heart.light"
-    textContent="Lista de Favoritos"
-  ></app-button>
-</div>
+<section class="episode-detail">
+  <div class="top-episode-detail">
+    <a routerLink="/">
+      <img src="{{ bannerIcons.logoRM }}" />
+    </a>
+    <app-button
+      routerLink="/favorites"
+      [iconDark]="bannerIcons.heart.dark"
+      [iconLight]="bannerIcons.heart.light"
+      textContent="Lista de Favoritos"
+    ></app-button>
+  </div>
+  <div class="bottom-episode-detail">
+    <img src="{{ bannerIcons.play.light }}" />
+    <h2>{{ currentEpisode?.name }}</h2>
+    <div class="episode-infos">
+      <span>
+        <img src="{{ bannerIcons.calendar.light }}" />
+        {{ currentEpisode?.air_date }}
+      </span>
+      <span>
+        <img src="{{ bannerIcons.queue.light }}" />
+        {{ currentEpisode?.episode }}
+      </span>
+    </div>
+    <span>
+      <img src="{{ bannerIcons.smiley.light }}" />
+      {{ currentEpisode?.characters?.length }} personagens participaram deste
+      episódio
+    </span>
+  </div>
+</section>
 
-<p>{{ currentEpisode?.name }}</p>
-<p>{{ currentEpisode?.air_date }}</p>
-<p>{{ currentEpisode?.episode }}</p>
-<p>
-  {{ currentEpisode?.characters?.length }} personagens participaram deste
-  episódio
-</p>
+<p></p>
+<p></p>

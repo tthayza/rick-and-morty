@@ -27,20 +27,28 @@ export class EpisodeDetailComponent {
   elementType?: string;
   isFavorite!: boolean;
   currentFavoriteIcon?: string;
-  logoRM = '../../../../assets/logo-a.svg';
 
   bannerIcons = {
+    logoRM: '../../../../assets/logo-a.svg',
     heart: {
       light: '../../../../assets/icons/heart-light.svg',
       dark: '../../../../assets/icons/heart-dark.svg',
     },
-    darkIcon: {
-      light: '../../../../assets/icons/moon-light.svg',
-      dark: '../../../../assets/icons/moon-dark.svg',
+    play: {
+      light: '../../../../assets/icons/play-light.svg',
+      dark: '../../../../assets/icons/play-dark.svg',
     },
-    lightIcon: {
-      light: '../../../../assets/icons/sun-light.svg',
-      dark: '../../../../assets/icons/sun-dark.svg',
+    calendar: {
+      light: '../../../../assets/icons/calendar-light.svg',
+      dark: '../../../../assets/icons/calendar-dark.svg',
+    },
+    queue: {
+      light: '../../../../assets/icons/queue-light.svg',
+      dark: '../../../../assets/icons/queue-dark.svg',
+    },
+    smiley: {
+      light: '../../../../assets/icons/smiley-light.svg',
+      dark: '../../../../assets/icons/smiley-dark.svg',
     },
   };
 

@@ -1,42 +1,63 @@
-<div class="top-header">
-  <a routerLink="/">
-    <img src="{{ logoRM }}" />
-  </a>
-  <app-button
-    routerLink="/favorites"
-    [iconDark]="bannerIcons.heart.dark"
-    [iconLight]="bannerIcons.heart.light"
-    textContent="Lista de Favoritos"
-  ></app-button>
-</div>
-<img src="{{ currentCharacter?.image }}" />
-<p>
-  {{ currentCharacter?.name }}
-  <button
-    (click)="
-      isFavorite
-        ? removeFavorite(currentId ? currentId : 1)
-        : addFavorite(currentId ? currentId : 1)
-    "
-  >
-    <img src="{{ currentFavoriteIcon }}" />
-  </button>
-</p>
-
-<p>Participou de {{ currentCharacter?.episode?.length }} episódios</p>
-
-<p>{{ currentCharacter?.status }}</p>
-<p>{{ currentCharacter?.gender }}</p>
-<p>{{ currentCharacter?.species }}</p>
-
-<div>
-  <img src="" />
-  <p>Planet</p>
-  <p>{{ currentCharacter?.origin?.name }}</p>
-  <app-button textContent="Saiba mais"></app-button>
-</div>
-<div>
-  <img src="" />
-  <p>{{ currentCharacter?.location?.name }}</p>
-  <app-button textContent="Saiba mais"></app-button>
-</div>
+<section class="character-detail">
+  <div class="top-character-detail">
+    <a routerLink="/">
+      <img src="{{ bannerIcons.logoRM }}" />
+    </a>
+    <app-button
+      routerLink="/favorites"
+      [iconDark]="bannerIcons.heart.dark"
+      [iconLight]="bannerIcons.heart.light"
+      textContent="Lista de Favoritos"
+    ></app-button>
+  </div>
+  <div class="bottom-character-detail">
+    <figure>
+      <img src="{{ currentCharacter?.image }}" />
+    </figure>
+    <div class="character-section">
+      <div class="character-infos">
+        <div class="character-detail-info">
+          <h2>{{ currentCharacter?.name }}</h2>
+          <button
+            (click)="
+              isFavorite
+                ? removeFavorite(currentId ? currentId : 1)
+                : addFavorite(currentId ? currentId : 1)
+            "
+          >
+            <img src="{{ currentFavoriteIcon }}" />
+          </button>
+        </div>
+        <span>
+          <img src="{{ bannerIcons.play.light }}" />
+          Participou de {{ currentCharacter?.episode?.length }} episódios
+        </span>
+        <div class="character-details-status">
+          <span>
+            <img src="{{ bannerIcons.pulse }}" />
+            {{ currentCharacter?.status }}
+          </span>
+          <span>
+            <img src="{{ bannerIcons.human.light }}" />
+            <p>{{ currentCharacter?.species }}</p>
+          </span>
+          <span>
+            <img src="{{ bannerIcons.gender.light }}" />
+            {{ currentCharacter?.gender }}
+          </span>
+        </div>
+      </div>
+      <div class="locations-characters">
+        <div class="card-location">
+          <img src="{{ bannerIcons.planet.light }}" />
+          <span>Planet</span>
+          <p>{{ currentCharacter?.origin?.name }}</p>
+        </div>
+        <div class="card-location">
+          <img src="{{ bannerIcons.mapPin.light }}" />
+          <span>{{ currentCharacter?.location?.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

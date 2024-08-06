@@ -1,0 +1,19 @@
+@import "../../../../styles.scss";
+
+.favorites-banner {
+  display: flex;
+  flex-direction: column;
+  border-bottom: $blueA 0.2rem solid;
+  .top-favorites-banner {
+    @include flex-justify-align(space-around, center);
+  }
+  .bottom-favorites {
+    @include flex-justify-align(space-evenly, center);
+    h2 {
+      font-size: 4.8rem;
+      span {
+        color: $blueA;
+      }
+    }
+  }
+}

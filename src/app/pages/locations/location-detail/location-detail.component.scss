@@ -1,0 +1,34 @@
+@import "../../../../styles.scss";
+
+.location-detail {
+  padding: 2rem 16rem;
+  border-bottom: solid 0.2rem $blueA;
+
+  .top-location-detail {
+    width: 100%;
+    @include flex-justify-align(space-around, center);
+  }
+  .bottom-location-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    .main-icon {
+      width: 7.2rem;
+    }
+    h2 {
+      font-size: 4.8rem;
+    }
+    .infos-location {
+      @include alignment(center);
+      gap: 2.8rem;
+    }
+    span {
+      font-size: 1.4rem;
+      @include alignment(center);
+      gap: 0.8rem;
+    }
+    img {
+      width: 3.2rem;
+    }
+  }
+}

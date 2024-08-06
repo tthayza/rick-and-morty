@@ -1,0 +1,20 @@
+<section class="favorites-banner">
+  <div class="top-favorites-banner">
+    <a routerLink="/">
+      <img src="{{ bannerIcons.logoRM }}" />
+    </a>
+    <app-button
+      routerLink="/favorites"
+      [iconDark]="bannerIcons.heart.dark"
+      [iconLight]="bannerIcons.heart.light"
+      textContent="Lista de Favoritos"
+    ></app-button>
+  </div>
+  <div class="bottom-favorites">
+    <h2>
+      Todos os seus <br />
+      <span>favoritos.</span>
+    </h2>
+    <img class="right-container" src="{{ bannerIcons.banner }}" />
+  </div>
+</section>

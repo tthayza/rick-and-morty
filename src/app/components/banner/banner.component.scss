@@ -3,6 +3,7 @@
 .header-section {
   flex-direction: column;
   width: 100%;
+  border-bottom: 0.2rem solid $blueA;
   &.dark {
     background-color: black;
   }

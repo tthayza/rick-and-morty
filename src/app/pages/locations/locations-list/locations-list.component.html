@@ -1,10 +1,16 @@
-<app-banner></app-banner>
+<app-location-detail
+  [currentLocation]="currentLocation"
+  (unfavorited)="refreshFavorites()"
+></app-location-detail>
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (pageChange)="onPageChange($event)"
 />
-<app-card-listing [elementsList]="locations" />
+<app-card-listing
+  [elementsList]="locations"
+  (cardDetailRequested)="onCardDetailRequested($event)"
+/>
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"

@@ -26,7 +26,6 @@ export class CardListingComponent {
   }
 
   onDetailRequested(event: { type: string; id: number }) {
-    // Reemite o evento para o componente pai
     this.cardDetailRequested.emit(event);
   }
 }

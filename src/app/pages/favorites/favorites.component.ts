@@ -9,11 +9,12 @@ import { IEpisode } from '../../models/episode.model';
 import { ILocation } from '../../models/location.model';
 import { CommonModule } from '@angular/common';
 import { BannerComponent } from '../../components/banner/banner.component';
+import { FavoritesBannerComponent } from './favorites-banner/favorites-banner.component';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CardListingComponent, CommonModule, BannerComponent],
+  imports: [CardListingComponent, CommonModule, FavoritesBannerComponent],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
 })

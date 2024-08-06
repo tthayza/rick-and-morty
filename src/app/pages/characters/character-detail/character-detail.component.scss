@@ -1,0 +1,87 @@
+@import "../../../../styles.scss";
+
+.character-detail {
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 16rem;
+  border-bottom: $blueA 0.2rem solid;
+  @include justifying(center);
+  .top-character-detail {
+    @include flex-justify-align(space-around, center);
+  }
+  .bottom-character-detail {
+    padding: 0 10rem;
+    @include alignment(center);
+    gap: 3rem;
+    figure img {
+      border-radius: 1.6rem;
+    }
+
+    .character-section,
+    .character-infos {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      .character-detail-info {
+        @include alignment(center);
+        gap: 4.8rem;
+        h2 {
+          font-size: 4.8rem;
+        }
+      }
+    }
+    .character-infos {
+      @include justifying(center);
+      .character-details-status {
+        display: flex;
+        gap: 2rem;
+        // border: solid 4px blue;
+      }
+    }
+    .character-section {
+      width: 100%;
+    }
+    span {
+      font-size: 1.6rem;
+      @include alignment(center);
+      gap: 0.2rem;
+      img {
+        width: 3.2rem;
+      }
+    }
+    .locations-characters {
+      width: 100%;
+      @include flex-justify-align(end, center);
+      gap: 2.4rem;
+      .card-location {
+        @include alignment(center);
+        flex-direction: column;
+        position: relative;
+        // border: solid 2px red;
+        border-radius: 1.6rem;
+        width: 12%;
+        height: 10rem;
+        background-color: #f8f6f6;
+        &.dark {
+          background-color: $darkGray;
+        }
+        img {
+          width: 4.8rem;
+          margin-bottom: 2rem;
+          position: absolute;
+          top: -20%;
+        }
+        span {
+          margin-top: 2.4rem;
+          &.dark {
+            color: white;
+          }
+        }
+        p {
+          color: $blueA;
+          margin-top: 1.2rem;
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,34 @@
-<p>location-detail works!</p>
+<section class="location-detail">
+  <div class="top-location-detail">
+    <a routerLink="/">
+      <img src="{{ bannerIcons.logoRM }}" />
+    </a>
+    <app-button
+      routerLink="/favorites"
+      [iconDark]="bannerIcons.heart.dark"
+      [iconLight]="bannerIcons.heart.light"
+      textContent="Lista de Favoritos"
+    ></app-button>
+  </div>
+  <div class="bottom-location-detail">
+    <img src="{{ bannerIcons.planet.light }}" class="main-icon" />
+    <h2>{{ currentLocation?.name }}</h2>
+    <div class="infos-location">
+      <span>
+        <img src="{{ bannerIcons.planet.light }}" />
+        Planet
+      </span>
+      <span>
+        <img src="{{ bannerIcons.dimension.light }}" />
+
+        {{ currentLocation?.dimension }}
+      </span>
+    </div>
+
+    <span class="residents-location">
+      <img src="{{ bannerIcons.residents.light }}" />
+      {{ currentLocation?.residents?.length }} Personagens localizados
+      aqui</span
+    >
+  </div>
+</section>

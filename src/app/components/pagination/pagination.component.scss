@@ -1,6 +1,6 @@
 @import "../../../styles.scss";
 .section-pagination {
-  // border: solid 3px rosybrown;
+  margin: 3.2rem 0;
   @include flex-justify-align(center, center);
   .wrapper-pagination {
     gap: 4rem;

@@ -28,21 +28,38 @@ export class CharacterDetailComponent {
   elementType?: string;
   isFavorite!: boolean;
   currentFavoriteIcon?: string;
-  logoRM = '../../../../assets/logo-a.svg';
 
   bannerIcons = {
+    logoRM: '../../../../assets/logo-a.svg',
     heart: {
       light: '../../../../assets/icons/heart-light.svg',
       dark: '../../../../assets/icons/heart-dark.svg',
     },
-    darkIcon: {
-      light: '../../../../assets/icons/moon-light.svg',
-      dark: '../../../../assets/icons/moon-dark.svg',
+    play: {
+      light: '../../../../assets/icons/play-light.svg',
+      dark: '../../../../assets/icons/play-dark.svg',
     },
-    lightIcon: {
-      light: '../../../../assets/icons/sun-light.svg',
-      dark: '../../../../assets/icons/sun-dark.svg',
+    human: {
+      light: '../../../../assets/icons/alien-light.svg',
+      dark: '../../../../assets/icons/alien-dark.svg',
     },
+    gender: {
+      light: '../../../../assets/icons/intersex-light.svg',
+      dark: '../../../../assets/icons/intersex-dark.svg',
+    },
+    planet: {
+      light: '../../../../assets/icons/planet-light.svg',
+      dark: '../../../../assets/icons/planet-dark.svg',
+    },
+    mapPin: {
+      light: '../../../../assets/icons/map-pin-light.svg',
+      dark: '../../../../assets/icons/map-pin-dark.svg',
+    },
+    info: {
+      light: '../../../../assets/icons/info-light.svg',
+      dark: '../../../../assets/icons/info-dark.svg',
+    },
+    pulse: '../../../../assets/icons/pulse.svg',
   };
 
   ngOnInit() {
