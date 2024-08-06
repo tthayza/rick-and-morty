@@ -1,0 +1,30 @@
+@import "../../../styles.scss";
+
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+  .top-footer {
+    @include flex-justify-align(space-around, center);
+  }
+  .divider {
+    height: 0.2rem;
+    width: 100%;
+    background-color: #d9d9d9;
+  }
+  .bottom-footer {
+    @include flex-justify-align(space-around, center);
+    .author-details {
+      // border: solid 5px red;
+      @include alignment(center);
+      gap: 1.2rem;
+      span {
+        font-weight: 700;
+      }
+    }
+    span {
+      color: $blueA;
+    }
+  }
+}
