@@ -1,7 +1,11 @@
 @import "../../../styles.scss";
 .filter-section {
   @include flex-justify-align(space-around, center);
-  margin: 5.6rem;
+  padding: 5.6rem;
+  &.dark {
+    background-color: $darkGray;
+    color: white;
+  }
 
   .input-filter {
     position: relative;
@@ -15,9 +19,9 @@
       &.dark {
         border: none;
         background-color: $blackA;
-        color: rgba(228, 244, 244, 0.5); /* Aplicar cor ao texto do input */
+        color: rgba(228, 244, 244, 0.5);
         &::placeholder {
-          color: rgba(228, 244, 244, 0.5); /* Aplicar cor ao placeholder */
+          color: rgba(228, 244, 244, 0.5);
         }
       }
 
@@ -30,7 +34,7 @@
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      width: 20px; /* Ajuste o tamanho da imagem */
+      width: 20px;
       cursor: pointer;
       height: 20px;
     }

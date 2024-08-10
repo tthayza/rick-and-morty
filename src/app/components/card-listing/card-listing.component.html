@@ -1,9 +1,9 @@
-<section class="wrapper-card-list">
+<section [ngClass]="['wrapper-card-list', currentTheme]">
   @if (heading) {
 
-  <div class="heading">
-    <img src="{{ heading.iconLight }}" />
-    <h2>{{ heading.textContent }}</h2>
+  <div [ngClass]="['heading', currentTheme]">
+    <img src="{{ currentHeadingIcon }}" />
+    <h2 [ngClass]="[currentTheme]">{{ heading.textContent }}</h2>
   </div>
   }
 

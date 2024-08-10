@@ -1,4 +1,4 @@
-<section class="episode-detail">
+<section [ngClass]="['episode-detail', currentTheme]">
   <div class="top-episode-detail">
     <a routerLink="/">
       <img src="{{ bannerIcons.logoRM }}" />
@@ -11,25 +11,22 @@
     ></app-button>
   </div>
   <div class="bottom-episode-detail">
-    <img src="{{ bannerIcons.play.light }}" />
-    <h2>{{ currentEpisode?.name }}</h2>
+    <img src="{{ currentIcons.playIcon }}" />
+    <h2 [ngClass]="[currentTheme]">{{ currentEpisode?.name }}</h2>
     <div class="episode-infos">
-      <span>
-        <img src="{{ bannerIcons.calendar.light }}" />
+      <span [ngClass]="[currentTheme]">
+        <img src="{{ currentIcons.calendarIcon }}" />
         {{ currentEpisode?.air_date }}
       </span>
-      <span>
-        <img src="{{ bannerIcons.queue.light }}" />
+      <span [ngClass]="[currentTheme]">
+        <img src="{{ currentIcons.queueIcon }}" />
         {{ currentEpisode?.episode }}
       </span>
     </div>
-    <span>
-      <img src="{{ bannerIcons.smiley.light }}" />
+    <span [ngClass]="[currentTheme]">
+      <img src="{{ currentIcons.smileyIcon }}" />
       {{ currentEpisode?.characters?.length }} personagens participaram deste
       episódio
     </span>
   </div>
 </section>
-
-<p></p>
-<p></p>

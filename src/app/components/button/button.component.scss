@@ -2,20 +2,39 @@
 
 .button {
   display: flex;
-  // justify-content: space-evenly;
   border-radius: 3.2rem;
   padding: 0.8rem;
-  // width: 11.5rem;
   width: fit-content;
   gap: 0.6rem;
   align-items: center;
+  &.light {
+    &:hover {
+      background-color: $blueA;
+      color: white;
+      box-shadow: 0 8px 15px rgba(61, 34, 34, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+  &.dark {
+    background-color: $darkGray;
+    color: white;
+    &:hover {
+      background-color: lighten($darkGray, 10%);
+      color: gray;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+  }
 
-  &:hover {
+  &:hover,
+  &:active {
     cursor: pointer;
   }
-  &:active,
-  &.active {
+  &:active {
     background-color: $blueA;
     color: $white;
+  }
+  img {
+    width: 2.4rem;
   }
 }

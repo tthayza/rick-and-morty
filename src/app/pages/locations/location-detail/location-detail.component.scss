@@ -3,6 +3,9 @@
 .location-detail {
   padding: 2rem 16rem;
   border-bottom: solid 0.2rem $blueA;
+  &.dark {
+    background-color: $darkGray;
+  }
 
   .top-location-detail {
     width: 100%;

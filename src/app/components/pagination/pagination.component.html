@@ -1,7 +1,7 @@
-<section class="section-pagination">
+<section [ngClass]="['section-pagination', currentTheme]">
   <div class="wrapper-pagination">
     <button [disabled]="currentPage === 1" (click)="previousGroup()">
-      <img src="../../../assets/icons/caret-left-light.svg" />
+      <img src="{{ currentArrows.left }}" />
     </button>
 
     <ng-container>
@@ -12,6 +12,7 @@
           active: page === currentPage,
           'inner-button': true
         }"
+        [class]="currentTheme"
         (click)="changePage(page)"
       >
         {{ page }}
@@ -20,7 +21,7 @@
     </ng-container>
 
     <button [disabled]="currentPage === totalPages" (click)="nextGroup()">
-      <img src="../../../assets/icons/caret-right-light.svg" />
+      <img src="{{ currentArrows.right }}" />
     </button>
   </div>
 </section>

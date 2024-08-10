@@ -1,4 +1,5 @@
 <app-favorites-banner></app-favorites-banner>
+
 @for (item of favorites | keyvalue ; track 0) {
 <app-card-listing [elementsList]="item.value" (updated)="loadFavorites()">
 </app-card-listing>

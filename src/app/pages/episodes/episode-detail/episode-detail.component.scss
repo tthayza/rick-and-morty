@@ -4,6 +4,9 @@
   flex-direction: column;
   padding: 2rem 16rem;
   border-bottom: $blueA 0.2rem solid;
+  &.dark {
+    background-color: $darkGray;
+  }
   .top-episode-detail {
     @include flex-justify-align(space-around, center);
   }

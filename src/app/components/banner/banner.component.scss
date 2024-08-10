@@ -4,7 +4,9 @@
   flex-direction: column;
   width: 100%;
   border-bottom: 0.2rem solid $blueA;
+  padding-top: 2rem;
   &.dark {
+    width: 100%;
     background-color: black;
   }
   @include alignment(center);
@@ -38,6 +40,16 @@
       p:last-child {
         color: $blueA;
       }
+    }
+    figure {
+      width: 43.5rem;
+      height: 43.6rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 }

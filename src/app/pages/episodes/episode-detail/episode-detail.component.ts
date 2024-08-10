@@ -4,11 +4,14 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EpisodeService } from '../../../services/episode.service';
 import { FavoriteService } from '../../../services/favorite.service';
+import { ETheme } from '../../../enums/theme.enum';
+import { ThemeService } from '../../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-episode-detail',
   standalone: true,
-  imports: [ButtonComponent, RouterLink],
+  imports: [ButtonComponent, RouterLink, CommonModule],
   templateUrl: './episode-detail.component.html',
   styleUrl: './episode-detail.component.scss',
 })
@@ -19,10 +22,11 @@ export class EpisodeDetailComponent {
   constructor(
     private episodeService: EpisodeService,
     private activatedRoute: ActivatedRoute,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private themeService: ThemeService
   ) {}
 
-  // currentCharacter?: ICharacter;
+  currentTheme!: ETheme;
   currentId?: number = 1;
   elementType?: string;
   isFavorite!: boolean;
@@ -52,6 +56,13 @@ export class EpisodeDetailComponent {
     },
   };
 
+  currentIcons = {
+    playIcon: this.bannerIcons.play.light,
+    calendarIcon: this.bannerIcons.calendar.light,
+    queueIcon: this.bannerIcons.queue.light,
+    smileyIcon: this.bannerIcons.smiley.light,
+  };
+
   ngOnInit() {
     this.elementType = this.activatedRoute.snapshot.url[0].path;
     this.loadFirstEpisode();
@@ -61,15 +72,17 @@ export class EpisodeDetailComponent {
       } else {
         this.currentId = +params.get('id')!;
       }
-      console.log('id', this.currentId);
       this.episodeService
         .getEpisodeById(this.currentId)
         .subscribe((episode) => {
           this.currentEpisode = episode;
-          console.log('cur', this.currentEpisode);
         });
     });
     this.checkIsFavorite(this.currentId ?? 1);
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.updateIconBasedOnTheme();
+    });
   }
 
   checkIsFavorite(elementId: number) {
@@ -109,5 +122,23 @@ export class EpisodeDetailComponent {
         this.currentEpisode = firstEpisode;
       }
     });
+  }
+  updateIconBasedOnTheme() {
+    this.currentIcons.playIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.play.light
+        : this.bannerIcons.play.dark;
+    this.currentIcons.calendarIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.calendar.light
+        : this.bannerIcons.calendar.dark;
+    this.currentIcons.queueIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.queue.light
+        : this.bannerIcons.queue.dark;
+    this.currentIcons.smileyIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.smiley.light
+        : this.bannerIcons.smiley.dark;
   }
 }

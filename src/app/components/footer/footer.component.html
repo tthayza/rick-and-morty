@@ -1,19 +1,21 @@
-<footer>
+<footer [ngClass]="currentTheme">
   <div class="top-footer">
     <img src="{{ bannerIcons.logoRM }}" />
     <app-button
-      [iconDark]="bannerIcons.arrow.dark"
       [iconLight]="bannerIcons.arrow.light"
+      [iconDark]="bannerIcons.arrow.dark"
       textContent="Voltar ao topo"
       (click)="scrollToTop()"
     ></app-button>
   </div>
   <div class="divider"></div>
   <div class="bottom-footer">
-    <p>&copy; 2024</p>
+    <p [ngClass]="currentTheme">&copy; 2024</p>
     <div class="author-details">
       <img src="{{ bannerIcons.code }}" />
-      <p>Desenvolvido por <span>Thayza Oliveira</span></p>
+      <p [ngClass]="currentTheme">
+        Desenvolvido por <span>Thayza Oliveira</span>
+      </p>
     </div>
   </div>
 </footer>

@@ -1,17 +1,29 @@
 @import "../../../styles.scss";
 .section-pagination {
-  margin: 3.2rem 0;
+  padding: 3.2rem 0;
   @include flex-justify-align(center, center);
+  &.dark {
+    background-color: $darkGray;
+  }
   .wrapper-pagination {
     gap: 4rem;
-    // border: solid 3px teal;
     @include flex-justify-align(center, center);
     button {
       width: 4.7rem;
       height: 4.7rem;
+      &.light {
+        color: $blackA;
+      }
+      &.dark {
+        color: white;
+      }
+
       &.inner-button {
         border: 0.1rem solid $darkGray;
         border-radius: 99rem;
+        &.dark {
+          border: 0.1rem solid $white;
+        }
       }
       &.active {
         color: $white;

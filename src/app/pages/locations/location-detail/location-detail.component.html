@@ -1,32 +1,32 @@
-<section class="location-detail">
+<section [ngClass]="['location-detail', currentTheme]">
   <div class="top-location-detail">
     <a routerLink="/">
       <img src="{{ bannerIcons.logoRM }}" />
     </a>
     <app-button
       routerLink="/favorites"
-      [iconDark]="bannerIcons.heart.dark"
       [iconLight]="bannerIcons.heart.light"
+      [iconDark]="bannerIcons.heart.dark"
       textContent="Lista de Favoritos"
     ></app-button>
   </div>
   <div class="bottom-location-detail">
-    <img src="{{ bannerIcons.planet.light }}" class="main-icon" />
-    <h2>{{ currentLocation?.name }}</h2>
+    <img src="{{ currentIcons.planetIcon }}" class="main-icon" />
+    <h2 [ngClass]="[currentTheme]">{{ currentLocation?.name }}</h2>
     <div class="infos-location">
-      <span>
-        <img src="{{ bannerIcons.planet.light }}" />
+      <span [ngClass]="[currentTheme]">
+        <img src="{{ currentIcons.planetIcon }}" />
         Planet
       </span>
-      <span>
-        <img src="{{ bannerIcons.dimension.light }}" />
+      <span [ngClass]="[currentTheme]">
+        <img src="{{ currentIcons.dimensionIcon }}" />
 
         {{ currentLocation?.dimension }}
       </span>
     </div>
 
-    <span class="residents-location">
-      <img src="{{ bannerIcons.residents.light }}" />
+    <span [ngClass]="['residents-location', currentTheme]">
+      <img src="{{ currentIcons.smileyIcon }}" />
       {{ currentLocation?.residents?.length }} Personagens localizados
       aqui</span
     >

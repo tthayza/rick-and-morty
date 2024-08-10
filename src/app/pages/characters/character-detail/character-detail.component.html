@@ -1,12 +1,12 @@
-<section class="character-detail">
+<section [ngClass]="['character-detail', currentTheme]">
   <div class="top-character-detail">
     <a routerLink="/">
       <img src="{{ bannerIcons.logoRM }}" />
     </a>
     <app-button
       routerLink="/favorites"
-      [iconDark]="bannerIcons.heart.dark"
       [iconLight]="bannerIcons.heart.light"
+      [iconDark]="bannerIcons.heart.dark"
       textContent="Lista de Favoritos"
     ></app-button>
   </div>
@@ -17,7 +17,7 @@
     <div class="character-section">
       <div class="character-infos">
         <div class="character-detail-info">
-          <h2>{{ currentCharacter?.name }}</h2>
+          <h2 [ngClass]="currentTheme">{{ currentCharacter?.name }}</h2>
           <button
             (click)="
               isFavorite
@@ -28,8 +28,8 @@
             <img src="{{ currentFavoriteIcon }}" />
           </button>
         </div>
-        <span>
-          <img src="{{ bannerIcons.play.light }}" />
+        <span [ngClass]="currentTheme">
+          <img src="{{ currentIcons.currentPlayIcon }}" />
           Participou de {{ currentCharacter?.episode?.length }} episódios
         </span>
         <div class="character-details-status">
@@ -38,23 +38,23 @@
             {{ currentCharacter?.status }}
           </span>
           <span>
-            <img src="{{ bannerIcons.human.light }}" />
-            <p>{{ currentCharacter?.species }}</p>
+            <img src="{{ currentIcons.currentAlienIcon }}" />
+            {{ currentCharacter?.species }}
           </span>
           <span>
-            <img src="{{ bannerIcons.gender.light }}" />
+            <img src="{{ currentIcons.currentGenderIcon }}" />
             {{ currentCharacter?.gender }}
           </span>
         </div>
       </div>
       <div class="locations-characters">
-        <div class="card-location">
-          <img src="{{ bannerIcons.planet.light }}" />
+        <div [ngClass]="['card-location', currentTheme]">
+          <img src="{{ currentIcons.currentPlanetIcon }}" />
           <span>Planet</span>
           <p>{{ currentCharacter?.origin?.name }}</p>
         </div>
-        <div class="card-location">
-          <img src="{{ bannerIcons.mapPin.light }}" />
+        <div [ngClass]="['card-location', currentTheme]">
+          <img src="{{ currentIcons.currentPinIcon }}" />
           <span>{{ currentCharacter?.location?.name }}</span>
         </div>
       </div>

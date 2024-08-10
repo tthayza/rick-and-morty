@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ICharacter } from '../../models/character.model';
 import { IEpisode } from '../../models/episode.model';
 import { ILocation } from '../../models/location.model';
@@ -7,6 +14,8 @@ import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { ICharacterCardInfos } from '../../models/character-card-info.model';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { ETheme } from '../../enums/theme.enum';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-card',
@@ -28,29 +37,89 @@ export class CardComponent {
   get dataElement() {
     return this._dataElement;
   }
+
   isFavorite!: boolean;
   elementType!: 'characters' | 'episodes' | 'locations' | undefined;
   currentIcon!: string;
+  currentTheme!: ETheme;
 
-  /*icons. change according theme. */
-  infoIconLight = '../../../assets/icons/info-light.svg';
-  infoIconDark = '../../../assets/icons/info-dark.svg';
+  cardImages = {
+    pulse: '../../../assets/icons/pulse.svg',
+    info: {
+      light: '../../../assets/icons/info-dark.svg',
+      dark: '../../../assets/icons/info-light.svg',
+    },
+    episode: {
+      light: '../../../assets/icons/play-light.svg',
+      dark: '../../../assets/icons/play-dark.svg',
+    },
+    planet: {
+      light: '../../../assets/icons/planet-light.svg',
+      dark: '../../../assets/icons/planet-dark.svg',
+    },
+    heart: {
+      light: '../../../assets/icons/heart-light.svg',
+      dark: '../../../assets/icons/heart-dark.svg',
+    },
+    alien: {
+      light: '../../../assets/icons/alien-light.svg',
+      dark: '../../../assets/icons/alien-dark.svg',
+    },
+  };
 
   currentCharacter?: ICharacter;
   characterInfos?: ICharacterCardInfos[];
 
   currentEpisode?: IEpisode;
-  iconCardEpisode = '../../../assets/icons/play-light.svg';
+  currentImageEpisode =
+    this.currentTheme == ETheme.LightTheme
+      ? this.cardImages.episode.dark
+      : this.cardImages.episode.light;
 
   currentLocation?: ILocation;
-  iconCardLocation = '../../../assets/icons/planet-light.svg';
+  currentImageLocation = this.cardImages.planet.light;
 
-  constructor(private favoriteService: FavoriteService) {}
+  iconsInfos = {
+    planet: this.cardImages.planet.light,
+    alien: this.cardImages.alien.light,
+  };
+
+  constructor(
+    private favoriteService: FavoriteService,
+    private themeService: ThemeService
+  ) {}
 
   ngOnInit() {
     this.elementType;
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.updateIconBasedOnTheme();
+    });
   }
 
+  updateIconBasedOnTheme() {
+    this.currentImageLocation =
+      this.currentTheme === ETheme.LightTheme
+        ? this.cardImages.planet.light
+        : this.cardImages.planet.dark;
+    this.currentImageEpisode =
+      this.currentTheme === ETheme.LightTheme
+        ? this.cardImages.episode.light
+        : this.cardImages.episode.dark;
+
+    const infoCopy = structuredClone(this.iconsInfos);
+    infoCopy.planet =
+      this.currentTheme === ETheme.LightTheme
+        ? this.cardImages.planet.light
+        : this.cardImages.planet.dark;
+    infoCopy.alien =
+      this.currentTheme === ETheme.LightTheme
+        ? this.cardImages.alien.light
+        : this.cardImages.alien.dark;
+
+    this.iconsInfos = infoCopy;
+    this.setElementType();
+  }
   onDetailRequested() {
     if (this.dataElement && this.elementType) {
       this.detailRequested.emit({
@@ -68,12 +137,12 @@ export class CardComponent {
           .some((id) => elementId == id)
       ) {
         this.isFavorite = true;
-        this.currentIcon = '../../../assets/icons/heart-dark.svg';
+        this.currentIcon = this.cardImages.heart.dark;
         return;
       }
     }
     this.isFavorite = false;
-    this.currentIcon = '../../../assets/icons/heart-light.svg';
+    this.currentIcon = this.cardImages.heart.light;
   }
 
   setElementType() {
@@ -84,15 +153,15 @@ export class CardComponent {
         this.currentCharacter = this.dataElement as ICharacter;
         this.characterInfos = [
           {
-            icon: '../../../assets/icons/pulse.svg',
+            icon: this.cardImages.pulse,
             textContent: this.currentCharacter.status,
           },
           {
-            icon: '../../../assets/icons/alien-light.svg',
+            icon: this.iconsInfos.alien,
             textContent: this.currentCharacter.species,
           },
           {
-            icon: '../../../assets/icons/planet-light.svg',
+            icon: this.iconsInfos.planet,
             textContent: this.currentCharacter.origin.name,
           },
         ];
@@ -113,12 +182,12 @@ export class CardComponent {
   addFavorite(id: number) {
     this.favoriteService.addFavoriteItem(this.elementType, id);
     this.isFavorite = true;
-    this.currentIcon = '../../../assets/icons/heart-dark.svg';
+    this.currentIcon = this.cardImages.heart.dark;
   }
 
   removeFavorite(id: number) {
     this.isFavorite = false;
-    this.currentIcon = '../../../assets/icons/heart-light.svg';
+    this.currentIcon = this.cardImages.heart.light;
     this.favoriteService.removeFavoriteItem(this.elementType, id);
     this.unfavorited.emit();
   }

@@ -1,6 +1,5 @@
-<app-banner (theme)="onThemeChange($event)"></app-banner>
+<app-banner></app-banner>
 <app-filter
-  [currentTheme]="currentTheme"
   (search)="onSearch($event)"
   (filterChange)="onFilterChange($event)"
   (requestFilter)="applyFilter()"
@@ -8,7 +7,7 @@
 @if (filteredElements.length > 0) {
 <app-card-listing [elementsList]="filteredElements" />
 } @else { @for (item of elements | keyvalue ; track 0) {
-<div class="heading">
+<div [ngClass]="['heading', currentTheme]">
   <h2>{{ keyToPortuguese[item.key] }}</h2>
   <app-button
     routerLink="/{{ item.key }}"

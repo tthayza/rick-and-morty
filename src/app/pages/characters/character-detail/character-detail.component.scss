@@ -6,6 +6,10 @@
   padding: 2rem 16rem;
   border-bottom: $blueA 0.2rem solid;
   @include justifying(center);
+  &.dark {
+    background-color: $darkGray;
+    color: white;
+  }
   .top-character-detail {
     @include flex-justify-align(space-around, center);
   }
@@ -35,7 +39,6 @@
       .character-details-status {
         display: flex;
         gap: 2rem;
-        // border: solid 4px blue;
       }
     }
     .character-section {
@@ -57,13 +60,12 @@
         @include alignment(center);
         flex-direction: column;
         position: relative;
-        // border: solid 2px red;
         border-radius: 1.6rem;
-        width: 12%;
-        height: 10rem;
+        width: 14%;
+        height: 12rem;
         background-color: #f8f6f6;
         &.dark {
-          background-color: $darkGray;
+          background-color: $blackB;
         }
         img {
           width: 4.8rem;

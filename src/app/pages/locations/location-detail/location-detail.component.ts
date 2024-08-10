@@ -4,11 +4,14 @@ import { LocationService } from '../../../services/location.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FavoriteService } from '../../../services/favorite.service';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { ETheme } from '../../../enums/theme.enum';
+import { ThemeService } from '../../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-location-detail',
   standalone: true,
-  imports: [ButtonComponent, RouterLink],
+  imports: [ButtonComponent, RouterLink, CommonModule],
   templateUrl: './location-detail.component.html',
   styleUrl: './location-detail.component.scss',
 })
@@ -19,9 +22,11 @@ export class LocationDetailComponent {
   constructor(
     private locationService: LocationService,
     private activatedRoute: ActivatedRoute,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private themeService: ThemeService
   ) {}
 
+  currentTheme!: ETheme;
   currentId?: number = 1;
   elementType?: string;
   isFavorite!: boolean;
@@ -34,8 +39,8 @@ export class LocationDetailComponent {
       dark: '../../../../assets/icons/planet-dark.svg',
     },
     heart: {
-      light: '../../../../assets/icons/planet-light.svg',
-      dark: '../../../../assets/icons/planet-dark.svg',
+      light: '../../../../assets/icons/heart-light.svg',
+      dark: '../../../../assets/icons/heart-dark.svg',
     },
     dimension: {
       light: '../../../../assets/icons/dimension-light.svg',
@@ -47,6 +52,12 @@ export class LocationDetailComponent {
     },
   };
 
+  currentIcons = {
+    planetIcon: this.bannerIcons.planet.light,
+    dimensionIcon: this.bannerIcons.dimension.light,
+    smileyIcon: this.bannerIcons.residents.light,
+  };
+
   ngOnInit() {
     this.elementType = this.activatedRoute.snapshot.url[0].path;
     this.loadFirstLocation();
@@ -56,7 +67,6 @@ export class LocationDetailComponent {
       } else {
         this.currentId = +params.get('id')!;
       }
-      console.log('id', this.currentId);
       this.locationService
         .getLocationById(this.currentId)
         .subscribe((location) => {
@@ -64,6 +74,10 @@ export class LocationDetailComponent {
         });
     });
     this.checkIsFavorite(this.currentId ?? 1);
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+    });
+    this.updateIconBasedOnTheme();
   }
 
   checkIsFavorite(elementId: number) {
@@ -74,23 +88,23 @@ export class LocationDetailComponent {
           .some((id) => elementId == id)
       ) {
         this.isFavorite = true;
-        this.currentFavoriteIcon = '../../../../assets/icons/heart-dark.svg';
+        this.currentFavoriteIcon = this.bannerIcons.heart.dark;
         return;
       }
     }
     this.isFavorite = false;
-    this.currentFavoriteIcon = '../../../../assets/icons/heart-light.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.light;
   }
 
   addFavorite(id: number) {
     this.favoriteService.addFavoriteItem('locations', id);
     this.isFavorite = true;
-    this.currentFavoriteIcon = '../../../assets/icons/heart-dark.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.dark;
   }
 
   removeFavorite(id: number) {
     this.isFavorite = false;
-    this.currentFavoriteIcon = '../../../assets/icons/heart-light.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.light;
     this.favoriteService.removeFavoriteItem('locations', id);
     this.unfavorited.emit();
   }
@@ -102,5 +116,19 @@ export class LocationDetailComponent {
         this.currentLocation = firstLocation;
       }
     });
+  }
+  updateIconBasedOnTheme() {
+    this.currentIcons.planetIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.planet.light
+        : this.bannerIcons.planet.dark;
+    this.currentIcons.dimensionIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.dimension.light
+        : this.bannerIcons.dimension.dark;
+    this.currentIcons.smileyIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.residents.light
+        : this.bannerIcons.residents.dark;
   }
 }

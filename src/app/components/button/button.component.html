@@ -1,4 +1,4 @@
-<button class="button button-light">
+<button [ngClass]="['button', currentTheme]">
   <img src="{{ currentIcon }}" />
   {{ textContent }}
 </button>

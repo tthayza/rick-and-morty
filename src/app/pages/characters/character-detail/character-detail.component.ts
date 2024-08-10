@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CharacterService } from '../../../services/character.service';
@@ -5,11 +6,14 @@ import { ICharacter } from '../../../models/character.model';
 import { CardComponent } from '../../../components/card/card.component';
 import { FavoriteService } from '../../../services/favorite.service';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { ETheme } from '../../../enums/theme.enum';
+import { ThemeService } from '../../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-character-detail',
   standalone: true,
-  imports: [RouterModule, CardComponent, ButtonComponent],
+  imports: [RouterModule, CardComponent, ButtonComponent, CommonModule],
   templateUrl: './character-detail.component.html',
   styleUrl: './character-detail.component.scss',
 })
@@ -17,13 +21,7 @@ export class CharacterDetailComponent {
   @Input() currentCharacter?: ICharacter;
   @Output() unfavorited = new EventEmitter<void>();
 
-  constructor(
-    private characterService: CharacterService,
-    private activatedRoute: ActivatedRoute,
-    private favoriteService: FavoriteService
-  ) {}
-
-  // currentCharacter?: ICharacter;
+  currentTheme!: ETheme;
   currentId?: number = 1;
   elementType?: string;
   isFavorite!: boolean;
@@ -62,6 +60,21 @@ export class CharacterDetailComponent {
     pulse: '../../../../assets/icons/pulse.svg',
   };
 
+  currentIcons = {
+    currentPlayIcon: this.bannerIcons.play.light,
+    currentAlienIcon: this.bannerIcons.human.light,
+    currentGenderIcon: this.bannerIcons.gender.light,
+    currentPlanetIcon: this.bannerIcons.planet.light,
+    currentPinIcon: this.bannerIcons.mapPin.light,
+  };
+
+  constructor(
+    private characterService: CharacterService,
+    private activatedRoute: ActivatedRoute,
+    private favoriteService: FavoriteService,
+    private themeService: ThemeService
+  ) {}
+
   ngOnInit() {
     this.elementType = this.activatedRoute.snapshot.url[0].path;
     this.loadFirstCharacter();
@@ -71,15 +84,17 @@ export class CharacterDetailComponent {
       } else {
         this.currentId = +params.get('id')!;
       }
-      console.log('id', this.currentId);
       this.characterService
         .getCharacterById(this.currentId)
         .subscribe((character) => {
           this.currentCharacter = character;
-          console.log('cur', this.currentCharacter);
         });
     });
     this.checkIsFavorite(this.currentId ?? 1);
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.updateIconBasedOnTheme();
+    });
   }
 
   loadFirstCharacter(page = 1) {
@@ -100,24 +115,47 @@ export class CharacterDetailComponent {
           .some((id) => elementId == id)
       ) {
         this.isFavorite = true;
-        this.currentFavoriteIcon = '../../../../assets/icons/heart-dark.svg';
+        this.currentFavoriteIcon = this.bannerIcons.heart.dark;
         return;
       }
     }
     this.isFavorite = false;
-    this.currentFavoriteIcon = '../../../../assets/icons/heart-light.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.light;
   }
 
   addFavorite(id: number) {
     this.favoriteService.addFavoriteItem('characters', id);
     this.isFavorite = true;
-    this.currentFavoriteIcon = '../../../assets/icons/heart-dark.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.dark;
   }
 
   removeFavorite(id: number) {
     this.isFavorite = false;
-    this.currentFavoriteIcon = '../../../assets/icons/heart-light.svg';
+    this.currentFavoriteIcon = this.bannerIcons.heart.light;
     this.favoriteService.removeFavoriteItem('characters', id);
     this.unfavorited.emit();
+  }
+
+  updateIconBasedOnTheme() {
+    this.currentIcons.currentAlienIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.human.light
+        : this.bannerIcons.human.dark;
+    this.currentIcons.currentPlanetIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.planet.light
+        : this.bannerIcons.planet.dark;
+    this.currentIcons.currentPlayIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.play.light
+        : this.bannerIcons.play.dark;
+    this.currentIcons.currentPinIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.mapPin.light
+        : this.bannerIcons.mapPin.dark;
+    this.currentIcons.currentGenderIcon =
+      this.currentTheme == ETheme.LightTheme
+        ? this.bannerIcons.gender.light
+        : this.bannerIcons.gender.dark;
   }
 }

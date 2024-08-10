@@ -1,4 +1,13 @@
+h2,
+span {
+  &.dark {
+    color: white;
+  }
+}
 p {
   font-size: 1.6rem;
   line-height: 1.9rem;
+  &.dark {
+    color: white;
+  }
 }

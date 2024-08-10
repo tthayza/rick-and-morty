@@ -4,12 +4,22 @@
   flex-direction: column;
   border-radius: 0.8rem;
   padding: 0.2rem;
-  &.card-light {
+  &.light {
     background-color: $bgCardLight;
+    &:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transform: translateY(-4px);
+      background-color: lighten(white, 5%);
+    }
   }
-  &:hover {
-    background-color: $bgCardLightHover;
-    cursor: pointer;
+  &.dark {
+    background-color: $blackA;
+    color: white;
+    &:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: translateY(-4px);
+      background-color: darken($darkGray, 5%);
+    }
   }
   .element-infos {
     width: 100%;
@@ -35,6 +45,7 @@
     figure {
       width: 90%;
       height: 20rem;
+      margin-bottom: 2rem;
     }
     .characterImg {
       border-radius: 0.8rem;
@@ -43,14 +54,12 @@
       height: 100%;
     }
     .element-infos {
-      // border: solid brown 5px;
       padding-left: 1.6rem;
       .character-infos {
         display: flex;
         margin-top: 1.2rem;
         flex-direction: column;
         width: 16rem;
-        // border: solid 6px slateblue;
         p {
           @include alignment(center);
           gap: 0.4rem;
@@ -58,21 +67,24 @@
       }
       .action-buttons {
         flex-direction: column;
-        // border: solid 5px red;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
       }
     }
   }
   &.episodes {
     width: 27.2rem;
-    height: 9.6rem;
+    height: 14.6rem;
     justify-content: stretch;
-    padding: 1.6rem;
+    padding: 3.2rem 1.6rem;
 
     .element-infos {
       flex-direction: column;
     }
     .action-buttons {
-      // border: solid 7px red;
+      gap: 2rem;
+      padding: 2rem 0;
+
       flex-direction: row-reverse;
       button img {
         width: 3.2rem;
@@ -114,8 +126,9 @@
         }
       }
       .action-buttons {
-        display: flex;
+        @include alignment(center);
         flex-direction: column-reverse;
+        gap: 2rem;
         button img {
           width: 3.2rem;
         }

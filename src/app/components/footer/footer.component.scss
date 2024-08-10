@@ -4,7 +4,10 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 3.2rem;
+  padding: 3.2rem 0;
+  &.dark {
+    background-color: $darkGray;
+  }
   .top-footer {
     @include flex-justify-align(space-around, center);
   }

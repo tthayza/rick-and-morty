@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule, NgClass, NgFor } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
+import { ETheme } from '../../enums/theme.enum';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [ButtonComponent, NgFor, NgClass],
+  imports: [ButtonComponent, NgFor, NgClass, CommonModule],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
@@ -16,7 +18,7 @@ export class PaginationComponent implements OnInit {
 
   visiblePages: number[] = [];
   pagesPerGroup: number = 4;
-
+  currentTheme!: ETheme;
   arrowIcons = {
     right: {
       light: '../../../assets/icons/caret-right-light.svg',
@@ -27,15 +29,24 @@ export class PaginationComponent implements OnInit {
       dark: '../../../assets/icons/caret-left-dark.svg',
     },
   };
+  currentArrows = {
+    left: this.arrowIcons.left.light,
+    right: this.arrowIcons.right.light,
+  };
+
+  constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
     this.visiblePages = [1, 2, 3, 4];
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.updateIconBasedOnTheme();
+    });
   }
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      console.log('current', this.currentPage);
       this.pageChange.emit(this.currentPage);
       this.updateVisiblePages();
     }
@@ -86,5 +97,15 @@ export class PaginationComponent implements OnInit {
         this.changePage(this.currentPage + 1);
       }
     }
+  }
+  updateIconBasedOnTheme() {
+    this.currentArrows.left =
+      this.currentTheme == ETheme.LightTheme
+        ? this.arrowIcons.left.light
+        : this.arrowIcons.left.dark;
+    this.currentArrows.right =
+      this.currentTheme == ETheme.LightTheme
+        ? this.arrowIcons.right.light
+        : this.arrowIcons.right.dark;
   }
 }

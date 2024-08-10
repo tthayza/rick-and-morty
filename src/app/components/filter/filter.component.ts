@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { ETheme } from '../../enums/theme.enum';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-filter',
@@ -10,15 +11,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss',
 })
-export class FilterComponent {
-  @Input() currentTheme: ETheme = ETheme.LightTheme;
+export class FilterComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Output() filterChange = new EventEmitter<string>();
   @Output() requestFilter = new EventEmitter();
-  currentSearchIcon: string =
-    this.currentTheme == 'light'
-      ? '../../../assets/icons/search-light.svg'
-      : '../../../assets/icons/search-dark.svg';
+  currentTheme!: ETheme;
+  currentSearchIcon = '../../../assets/icons/search-light.svg';
   elements = [
     {
       iconDark: '../../../assets/icons/smiley-dark.svg',
@@ -38,6 +36,14 @@ export class FilterComponent {
   ];
   activeFilter: string = '';
 
+  constructor(private themeService: ThemeService) {}
+  ngOnInit() {
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.updateIconBasedOnTheme();
+    });
+  }
+
   onSearch(event: Event) {
     const target = event.target as HTMLInputElement;
     this.search.emit(target.value);
@@ -54,5 +60,11 @@ export class FilterComponent {
       this.activeFilter = filter;
     }
     this.filterChange.emit(this.activeFilter);
+  }
+  updateIconBasedOnTheme() {
+    this.currentSearchIcon =
+      this.currentTheme === ETheme.LightTheme
+        ? '../../../assets/icons/search-light.svg'
+        : '../../../assets/icons/search-dark.svg';
   }
 }

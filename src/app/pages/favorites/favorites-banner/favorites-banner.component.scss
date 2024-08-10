@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
   border-bottom: $blueA 0.2rem solid;
+  padding: 2rem 16rem;
+  &.dark {
+    background-color: $darkGray;
+  }
   .top-favorites-banner {
     @include flex-justify-align(space-around, center);
   }

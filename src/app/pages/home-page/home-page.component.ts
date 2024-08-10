@@ -15,6 +15,7 @@ import { ETheme } from '../../enums/theme.enum';
 import { FilterComponent } from '../../components/filter/filter.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-home-page',
@@ -49,7 +50,7 @@ export class HomePageComponent {
     episodes: 'Episódios',
     locations: 'Localizações',
   };
-
+  currentTheme!: ETheme;
   filteredElements: any[] = [];
   currentFilter: string | null = null;
   searchTerm: string = '';
@@ -59,17 +60,21 @@ export class HomePageComponent {
     iconLight: '../../../assets/icons/squares-four-light.svg',
   };
 
-  currentTheme: ETheme = ETheme.LightTheme;
+  // currentTheme: ETheme = ETheme.LightTheme;
   constructor(
     private characterService: CharacterService,
     private episodeService: EpisodeService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.loadCharacters();
     this.loadEpisodes();
     this.loadLocations();
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+    });
   }
 
   loadCharacters(page: number = 1) {
@@ -110,9 +115,9 @@ export class HomePageComponent {
     }
   }
 
-  onThemeChange(theme: ETheme) {
-    this.currentTheme = theme;
-  }
+  // onThemeChange(theme: ETheme) {
+  //   this.currentTheme = theme;
+  // }
 
   onSearch(searchTerm: string) {
     this.searchTerm = searchTerm.toLowerCase();

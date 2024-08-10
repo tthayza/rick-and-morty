@@ -1,25 +1,26 @@
-<div class="card card-light" [ngClass]="elementType">
+<div [ngClass]="['card', elementType, currentTheme]">
   @if(elementType == "characters") {
   <figure>
     <img src="{{ currentCharacter?.image }}" class="characterImg" />
   </figure>
   } @else if (elementType == "locations") {
   <figure>
-    <img src="{{ iconCardLocation }}" class="locationIcon" />
+    <img src="{{ currentImageLocation }}" class="locationIcon" />
   </figure>
   }
   <div class="element-infos">
     <div class="wrapper-card">
       @if(elementType == "locations"){
-      <p>Planet</p>
+      <p [ngClass]="[currentTheme]">Planet</p>
       }
       <p
+        [ngClass]="[currentTheme]"
         [ngStyle]="{
           'font-weight': elementType == 'characters' ? '700' : '400'
         }"
       >
         @if(elementType == "episodes"){
-        <img src="{{ iconCardEpisode }}" />
+        <img src="{{ currentImageEpisode }}" />
         }
 
         {{ dataElement.name }} @if(elementType == "episodes") {
@@ -30,7 +31,7 @@
 
       <div class="character-infos">
         @for (info of characterInfos; track 0) {
-        <p>
+        <p [ngClass]="[currentTheme]">
           <span>
             <img src="{{ info.icon }}" />
           </span>
@@ -52,8 +53,8 @@
         <img src="{{ currentIcon }}" />
       </button>
       <app-button
-        iconLight="{{ infoIconLight }}"
-        iconDark="{{ infoIconDark }}"
+        [iconLight]="cardImages.info.light"
+        [iconDark]="cardImages.info.dark"
         textContent="Saiba Mais"
         (click)="onDetailRequested()"
         routerLink="/{{ elementType }}/{{ dataElement.id }}"

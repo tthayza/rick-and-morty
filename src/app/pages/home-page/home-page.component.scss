@@ -1,8 +1,13 @@
 @import "../../../styles.scss";
 .heading {
-  margin-left: 20%;
+  padding-left: 20%;
+  padding-bottom: 4rem;
   @include alignment(center);
   gap: 1.2rem;
+  &.dark {
+    background-color: $darkGray;
+    color: white;
+  }
   h2 {
     font-size: 2.4rem;
   }

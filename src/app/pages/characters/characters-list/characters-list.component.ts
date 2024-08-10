@@ -12,6 +12,8 @@ import { CardListingComponent } from '../../../components/card-listing/card-list
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { BannerComponent } from '../../../components/banner/banner.component';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
+import { ThemeService } from '../../../services/theme.service';
+import { ETheme } from '../../../enums/theme.enum';
 
 @Component({
   selector: 'app-characters-list',
@@ -36,6 +38,7 @@ export class CharactersListComponent implements OnInit {
   currentPage: number = 1;
   currentCharacterId?: number;
   currentCharacter?: ICharacter;
+  currentTheme!: ETheme;
   totalPages: number = 0;
   headingCharacters = {
     iconDark: '../../../../assets/icons/smiley-dark.svg',
@@ -45,7 +48,8 @@ export class CharactersListComponent implements OnInit {
 
   constructor(
     private characterService: CharacterService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit() {
@@ -53,21 +57,21 @@ export class CharactersListComponent implements OnInit {
     this.characterService.getTotalPages().subscribe((pages) => {
       this.totalPages = pages;
     });
+    this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+    });
   }
 
   onCardDetailRequested(event: { type: string; id: number }) {
     this.router.navigate([`/${event.type}`, event.id]);
 
     this.currentCharacterId = event.id;
-    console.log('characters-list', event.type, event.id);
     this.getCharacterById(this.currentCharacterId);
   }
 
   getCharacterById(id: number) {
     this.characterService.getCharacterById(id).subscribe((character) => {
       this.currentCharacter = character as ICharacter;
-      console.log('current', this.currentCharacter);
-      console.log('locs', this.currentCharacter.location);
     });
   }
 
