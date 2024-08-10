@@ -47,14 +47,12 @@ export class EpisodesListComponent implements OnInit {
     this.router.navigate([`/${event.type}`, event.id]);
 
     this.currentEpisodeId = event.id;
-    console.log('Episodes-list', event.type, event.id);
     this.getEpisodeById(this.currentEpisodeId);
   }
 
   getEpisodeById(id: number) {
     this.episodeService.getEpisodeById(id).subscribe((episode) => {
       this.currentEpisode = episode as IEpisode;
-      console.log('current', this.currentEpisode);
     });
   }
 

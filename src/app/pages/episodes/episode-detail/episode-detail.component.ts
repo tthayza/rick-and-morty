@@ -118,7 +118,6 @@ export class EpisodeDetailComponent {
     this.episodeService.getEpisodesForPage(page).subscribe((episodes) => {
       if (episodes.length > 0) {
         const firstEpisode = episodes[0];
-        console.log(firstEpisode);
         this.currentEpisode = firstEpisode;
       }
     });

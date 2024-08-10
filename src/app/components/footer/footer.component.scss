@@ -19,7 +19,6 @@ footer {
   .bottom-footer {
     @include flex-justify-align(space-around, center);
     .author-details {
-      // border: solid 5px red;
       @include alignment(center);
       gap: 1.2rem;
       span {

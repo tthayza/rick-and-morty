@@ -60,7 +60,6 @@ export class HomePageComponent {
     iconLight: '../../../assets/icons/squares-four-light.svg',
   };
 
-  // currentTheme: ETheme = ETheme.LightTheme;
   constructor(
     private characterService: CharacterService,
     private episodeService: EpisodeService,
@@ -114,10 +113,6 @@ export class HomePageComponent {
       });
     }
   }
-
-  // onThemeChange(theme: ETheme) {
-  //   this.currentTheme = theme;
-  // }
 
   onSearch(searchTerm: string) {
     this.searchTerm = searchTerm.toLowerCase();

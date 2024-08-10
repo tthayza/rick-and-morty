@@ -82,14 +82,9 @@ export class PaginationComponent implements OnInit {
 
   nextGroup() {
     if (this.currentPage < this.totalPages) {
-      console.log('é maior', this.currentPage < this.totalPages);
       if (
         this.currentPage === this.visiblePages[this.visiblePages.length - 1]
       ) {
-        console.log(
-          'if 2 lenght -1',
-          this.visiblePages[this.visiblePages.length - 1]
-        );
         this.currentPage = this.visiblePages[this.visiblePages.length - 1] + 1;
         this.changePage(this.currentPage);
         this.updateVisiblePages();

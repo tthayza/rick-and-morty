@@ -14,7 +14,6 @@ export class CharacterService {
   private totalPagesSubject = new BehaviorSubject<number>(0);
   characters$ = this.charactersSubject.asObservable();
   totalPages$ = this.totalPagesSubject.asObservable();
-  //private charactersPerPage = 12;
 
   constructor(private http: HttpClient) {}
 

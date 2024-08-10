@@ -101,7 +101,6 @@ export class CharacterDetailComponent {
     this.characterService.getCharactersForPage(page).subscribe((characters) => {
       if (characters.length > 0) {
         const firstCharacter = characters[0];
-        console.log(firstCharacter);
         this.currentCharacter = firstCharacter;
       }
     });

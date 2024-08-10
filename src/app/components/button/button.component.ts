@@ -20,11 +20,6 @@ export class ButtonComponent {
   constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
-    // this.updateIconBasedOnTheme();
-    // this.currentTheme = this.themeService.getCurrentTheme();
-    // this.themeService.currentTheme$.subscribe(() => {
-    //   this.updateIconBasedOnTheme();
-    // });
     this.themeService.currentTheme$.subscribe((theme) => {
       this.currentTheme = theme;
       this.updateIconBasedOnTheme();
@@ -32,7 +27,6 @@ export class ButtonComponent {
   }
 
   updateIconBasedOnTheme() {
-    // const currentTheme = this.themeService.getCurrentTheme();
     this.currentIcon =
       this.currentTheme === ETheme.LightTheme ? this.iconLight : this.iconDark;
   }
